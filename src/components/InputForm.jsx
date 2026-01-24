@@ -131,40 +131,6 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       <div className="form-section">
         <div className="step-indicator">STEP 3</div>
         <label className="form-label">
-          <span className="label-text">현재 투자자산 금액</span>
-          <span className="label-required">*</span>
-        </label>
-        <div className="input-group">
-          <input 
-            type="number"
-            className="form-input"
-            placeholder="예) 5000"
-            value={inputs.currentAssets}
-            onChange={(e) => onInputChange('currentAssets', Number(e.target.value))}
-            min="0"
-          />
-          <span className="input-suffix">만원</span>
-        </div>
-        
-        {requiredReturnPreview !== null && inputs.currentAssets && (
-          <div className="required-return-preview">
-            <div className="preview-icon">🎯</div>
-            <div className="preview-content">
-              <strong>필요 수익율 미리보기:</strong>
-              <br />
-              목표를 달성하려면 최소 <strong>{requiredReturnPreview.toFixed(2)}%</strong>의 연평균 수익률이 필요합니다.
-              <br />
-              <span className="small-text">
-                (가장 높은 배당률 50% 기준, {inputs.inflation > 0 ? `인플레이션 ${inputs.inflation}% 반영` : '인플레이션 미반영'})
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="form-section">
-        <div className="step-indicator">STEP 4</div>
-        <label className="form-label">
           <span className="label-text">목표 수익율</span>
           <span className="label-required">*</span>
         </label>
@@ -217,12 +183,42 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             <span className="small-text">(수익율 {inputs.dividendRate}% 기준{inputs.inflation > 0 ? `, 인플레이션 ${inputs.inflation}% 반영` : ''})</span>
           </div>
         )}
+      </div>
+
+      <div className="form-section">
+        <div className="step-indicator">STEP 4</div>
+        <label className="form-label">
+          <span className="label-text">현재 투자자산 금액</span>
+          <span className="label-required">*</span>
+        </label>
+        <div className="input-group">
+          <input 
+            type="number"
+            className="form-input"
+            placeholder="예) 5000"
+            value={inputs.currentAssets}
+            onChange={(e) => onInputChange('currentAssets', Number(e.target.value))}
+            min="0"
+          />
+          <span className="input-suffix">만원</span>
+        </div>
         
         {gap !== null && inputs.currentAssets && (
           <div className="feedback-message info">
             📊 현재 {formatNumber(inputs.currentAssets)}만원 → 목표 {formatNumber(Math.round(previewAsset))}만원
             <br />
             약 <strong>{formatNumber(Math.round(gap))}만원</strong>을 더 증식해야 합니다
+          </div>
+        )}
+        
+        {requiredReturnPreview !== null && inputs.currentAssets && (
+          <div className="required-return-preview">
+            <div className="preview-icon">🎯</div>
+            <div className="preview-content">
+              <strong>필요 수익율 미리보기:</strong>
+              <br />
+              목표 달성을 위해 최소 <strong>{requiredReturnPreview.toFixed(2)}%</strong>의 연평균 수익률이 필요합니다.
+            </div>
           </div>
         )}
       </div>

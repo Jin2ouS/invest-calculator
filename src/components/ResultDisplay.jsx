@@ -23,16 +23,6 @@ function ResultDisplay({ result, inputs }) {
           </div>
         </div>
 
-        <div className="summary-card highlight">
-          <div className="card-icon">📊</div>
-          <div className="card-content">
-            <div className="card-label">필요 수익율 (CAGR)</div>
-            <div className="card-value">
-              {formatPercent(result.requiredAnnualReturn)}%
-            </div>
-          </div>
-        </div>
-
         <div className="summary-card">
           <div className="card-icon">💰</div>
           <div className="card-content">
@@ -46,6 +36,16 @@ function ResultDisplay({ result, inputs }) {
           <div className="card-content">
             <div className="card-label">목표 수익율</div>
             <div className="card-value">{inputs.dividendRate}%</div>
+          </div>
+        </div>
+
+        <div className="summary-card highlight">
+          <div className="card-icon">📊</div>
+          <div className="card-content">
+            <div className="card-label">필요 수익율 (CAGR)</div>
+            <div className="card-value">
+              {formatPercent(result.requiredAnnualReturn)}%
+            </div>
           </div>
         </div>
       </div>
