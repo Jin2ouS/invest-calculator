@@ -27,7 +27,7 @@ function ResultDisplay({ result, inputs }) {
           <div className="card-icon">💰</div>
           <div className="card-content">
             <div className="card-label">증식해야 할 금액</div>
-            <div className="card-value">{formatNumber(result.targetAsset - inputs.currentAssets)} 만원</div>
+            <div className="card-value" style={{ color: '#dc2626' }}>{formatNumber(result.targetAsset - inputs.currentAssets)} 만원</div>
           </div>
         </div>
 
@@ -43,7 +43,7 @@ function ResultDisplay({ result, inputs }) {
           <div className="card-icon">📊</div>
           <div className="card-content">
             <div className="card-label">필요 수익율 (CAGR)</div>
-            <div className="card-value">
+            <div className="card-value" style={{ color: '#dc2626' }}>
               {formatPercent(result.requiredAnnualReturn)}%
             </div>
           </div>
