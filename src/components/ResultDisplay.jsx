@@ -85,24 +85,27 @@ function ResultDisplay({ result, inputs }) {
       {/* 연도별 차트 */}
       <div className="chart-section">
         <h3 className="section-title">연도별 자산 증가 추이 (필요 수익율 vs 목표 수익율)</h3>
-        <ResponsiveContainer width="100%" height={350}>
-          <LineChart data={result.yearlyData}>
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={result.yearlyData} margin={{ top: 5, right: 20, left: 20, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis 
               dataKey="year" 
-              label={{ value: '연도', position: 'insideBottom', offset: -5 }}
+              label={{ value: '년차', position: 'insideBottom', offset: -10 }}
               stroke="#6b7280"
+              tick={{ fontSize: 12 }}
             />
             <YAxis 
-              label={{ value: '자산 (만원)', angle: -90, position: 'insideLeft' }}
+              label={{ value: '자산 (만원)', angle: -90, position: 'insideLeft', offset: 10 }}
               stroke="#6b7280"
               tickFormatter={(value) => formatNumber(value)}
+              tick={{ fontSize: 12 }}
+              width={80}
             />
             <Tooltip 
               formatter={(value, name) => [formatNumber(value) + ' 만원', name]}
               contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
             />
-            <Legend />
+            <Legend verticalAlign="top" height={36} />
             <Line 
               type="monotone" 
               dataKey="asset" 

@@ -217,7 +217,11 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             <div className="preview-content">
               <strong>필요 수익율 미리보기:</strong>
               <br />
-              목표 달성을 위해 최소 <strong>{requiredReturnPreview.toFixed(2)}%</strong>의 연평균 수익률이 필요합니다.
+              목표를 달성하려면 최소 <strong>{requiredReturnPreview.toFixed(2)}%</strong>의 연평균 수익률이 필요합니다.
+              <br />
+              <span className="small-text">
+                (가장 높은 수익율 50% 기준, {inputs.inflation > 0 ? `인플레이션 ${inputs.inflation}% 반영` : '인플레이션 미반영'})
+              </span>
             </div>
           </div>
         )}
