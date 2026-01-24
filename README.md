@@ -1,16 +1,132 @@
-# React + Vite
+# 💰 투자 목표 계산기
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+미래 시점에 원하는 월 현금흐름을 얻기 위해 필요한 투자 수익률(CAGR)을 계산해주는 금융 계산기 웹 애플리케이션입니다.
 
-Currently, two official plugins are available:
+## 🎯 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 5단계 입력 프로세스
+- **STEP 1**: 목표 시점 선택 (1년 ~ 20년)
+- **STEP 2**: 목표 월 현금흐름 입력
+- **STEP 3**: 현재 투자자산 금액 입력
+- **STEP 4**: 목표 수익율 선택 (4% ~ 50%)
+  - 4% (예적금), 6% (고배당주), 10% (인덱스펀드), 20% (워렌 버핏), 30% (트레이더), 50% (투자의신?)
+- **STEP 5**: 인플레이션 반영 (선택사항, 0% ~ 4%)
 
-## React Compiler
+### 실시간 미리보기
+- 💡 수익율별 필요 자산 비교
+- 🎯 필요 수익률 실시간 프리뷰
+- 📈 인플레이션 영향 계산
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 계산 결과 시각화
+- 📊 필요한 최종 투자자산 표시
+- 📈 필요 수익률(CAGR) 계산
+- 📉 연도별 자산 증가 추이 차트
+- ✅ 필요 수익률 vs 목표 수익률 비교
+- 📋 연도별 상세 정보 테이블
 
-## Expanding the ESLint configuration
+### 인사이트 제공
+- 목표 달성 가능성 평가 (🎉, ✅, ⚠️, 🔴)
+- 투자 전략 제안
+- 인플레이션 조정된 미래 가치 계산
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🏗️ 기술 스택
+
+- **프레임워크**: React 19.2.0
+- **빌드 도구**: Vite 7.2.4
+- **차트 라이브러리**: Recharts 3.7.0
+- **스타일링**: CSS 모듈
+- **배포**: GitHub Pages
+
+## 📂 프로젝트 구조
+
+```
+src/
+├── components/
+│   ├── InvestmentCalculator.jsx  # 메인 계산기 컨테이너
+│   ├── InputForm.jsx              # 사용자 입력 폼
+│   └── ResultDisplay.jsx          # 결과 표시 컴포넌트
+└── utils/
+    └── calculator.js              # 투자 계산 로직 (CAGR 등)
+```
+
+## 💡 핵심 계산 로직
+
+1. **목표 자산 계산**
+   ```
+   목표자산 = (월현금흐름 × 12) / (배당수익률 / 100)
+   ```
+
+2. **필요 수익률(CAGR)**
+   ```
+   CAGR = ((최종값 / 초기값) ^ (1 / 기간)) - 1
+   ```
+
+3. **인플레이션 조정**
+   ```
+   미래가치 = 현재가치 × (1 + 인플레이션율) ^ 기간
+   ```
+
+4. **연도별 자산 시뮬레이션**: 복리 계산을 통한 자산 증가 추이
+
+## 🚀 시작하기
+
+### 설치
+
+```bash
+npm install
+```
+
+### 개발 서버 실행
+
+```bash
+npm run dev
+```
+
+### 프로덕션 빌드
+
+```bash
+npm run build
+```
+
+### 빌드 결과 미리보기
+
+```bash
+npm run preview
+```
+
+### GitHub Pages 배포
+
+```bash
+npm run deploy
+```
+
+## 🎨 사용자 경험 (UX)
+
+- 단계별 입력 가이드로 쉬운 사용성
+- 실시간 피드백 및 검증
+- 이모지를 활용한 직관적인 UI
+- 반응형 차트 및 테이블
+- 한국어 통화 포맷팅
+
+## 📝 사용 예시
+
+1. 목표 시점을 선택합니다 (예: 10년 후)
+2. 원하는 월 현금흐름을 입력합니다 (예: 300만원)
+3. 현재 투자자산을 입력합니다 (예: 5,000만원)
+4. 기대하는 수익율을 선택합니다 (예: 10% - 인덱스펀드)
+5. 필요시 인플레이션을 반영합니다 (예: 2% - 보통)
+6. 계산하기 버튼을 클릭하여 결과를 확인합니다
+
+계산 결과로 목표 달성을 위해 필요한 연평균 수익률(CAGR)과 연도별 자산 증가 추이를 확인할 수 있습니다.
+
+## 🎯 활용 사례
+
+- 개인 투자 계획 수립
+- 재무 목표 설정 및 검증
+- 은퇴 자금 계획
+- FIRE(Financial Independence, Retire Early) 목표 계산
+- 투자 포트폴리오 수익률 목표 설정
+
+## 📄 라이선스
+
+이 프로젝트는 개인 프로젝트입니다.
