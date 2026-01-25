@@ -144,6 +144,14 @@
   border: 1px solid #e5e7eb;
 }
 
+.inflation-buttons {
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
 .feedback-message {
   margin-top: 0.75rem;
   padding: 0.875rem 1rem;

@@ -95,6 +95,18 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
     onInputChange('dividendRate', newValue)
   }
 
+  const handleCurrentAssetsAdjust = (delta) => {
+    const currentValue = inputs.currentAssets || 0
+    const newValue = Math.max(0, currentValue + (delta * 100))
+    onInputChange('currentAssets', newValue)
+  }
+
+  const handleInflationAdjust = (delta) => {
+    const currentValue = inputs.inflation || 0
+    const newValue = Math.max(0, currentValue + (delta * 0.5))
+    onInputChange('inflation', newValue)
+  }
+
   return (
     <div className="input-form">
       <div className="form-section">
@@ -296,6 +308,24 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             min="0"
           />
           <span className="input-suffix">만원</span>
+          <div className="input-buttons">
+            <button 
+              type="button"
+              className="input-btn input-btn-up"
+              onClick={() => handleCurrentAssetsAdjust(1)}
+              aria-label="100만원 증가"
+            >
+              ▲
+            </button>
+            <button 
+              type="button"
+              className="input-btn input-btn-down"
+              onClick={() => handleCurrentAssetsAdjust(-1)}
+              aria-label="100만원 감소"
+            >
+              ▼
+            </button>
+          </div>
         </div>
         
         {gap !== null && inputs.currentAssets && (
@@ -313,19 +343,63 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
           <span className="label-text">인플레이션</span>
           <span className="label-optional">(선택사항)</span>
         </label>
-        <select 
-          className="form-select"
-          value={inputs.inflation}
-          onChange={(e) => onInputChange('inflation', Number(e.target.value))}
-        >
-          <option value={0}>0% (미반영)</option>
-          <option value={1}>1% (낮음)</option>
-          <option value={2}>2% (보통)</option>
-          <option value={3}>3% (높음)</option>
-          <option value={4}>4% (매우 높음)</option>
-        </select>
+        <div className="input-group">
+          <input 
+            type="number"
+            className="form-input"
+            placeholder="예) 2"
+            value={inputs.inflation}
+            onChange={(e) => onInputChange('inflation', Number(e.target.value))}
+            min="0"
+            step="0.1"
+          />
+          <span className="input-suffix">%</span>
+          <div className="input-buttons">
+            <button 
+              type="button"
+              className="input-btn input-btn-up"
+              onClick={() => handleInflationAdjust(1)}
+              aria-label="0.5% 증가"
+            >
+              ▲
+            </button>
+            <button 
+              type="button"
+              className="input-btn input-btn-down"
+              onClick={() => handleInflationAdjust(-1)}
+              aria-label="0.5% 감소"
+            >
+              ▼
+            </button>
+          </div>
+        </div>
         <div className="help-text">
           인플레이션을 고려하여 미래 가치를 조정합니다 (기본값: 0%)
+        </div>
+        
+        <div className="inflation-buttons">
+          <div className="comparison-title">📈 인플레이션 수준 선택</div>
+          <div className="comparison-grid">
+            {[
+              { value: 0, label: '0%', description: '미반영' },
+              { value: 1, label: '1%', description: '낮음' },
+              { value: 2, label: '2%', description: '보통' },
+              { value: 3, label: '3%', description: '높음' },
+              { value: 4, label: '4%', description: '매우 높음' }
+            ].map(({ value, label, description }) => {
+              const isSelected = value === inputs.inflation
+              return (
+                <div 
+                  key={value} 
+                  className={`comparison-item ${isSelected ? 'selected' : ''}`}
+                  onClick={() => onInputChange('inflation', value)}
+                >
+                  <div className="rate">{label}</div>
+                  <div className="asset">{description}</div>
+                </div>
+              )
+            })}
+          </div>
         </div>
         
         {inputs.inflation > 0 && inputs.monthlyIncome > 0 && inputs.targetYears && (
