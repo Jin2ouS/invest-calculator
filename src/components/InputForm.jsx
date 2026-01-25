@@ -36,7 +36,7 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       
       // 다양한 수익율에 대한 필요 자산 계산하여 평균적인 필요 수익율 추정
       // 더 정확한 계산: 각 수익율별로 필요한 CAGR 계산
-      const yieldRates = [4, 6, 10, 20, 30, 50]
+      const yieldRates = [4, 6, 10, 20, 30, 50, 100, 200, 300]
       let minRequiredReturn = Infinity
       
       yieldRates.forEach(rate => {
@@ -134,45 +134,50 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
           <span className="label-text">목표 수익율</span>
           <span className="label-required">*</span>
         </label>
-        <select 
-          className="form-select"
-          value={inputs.dividendRate}
-          onChange={(e) => onInputChange('dividendRate', Number(e.target.value))}
-        >
-          <option value={4}>4% (예적금)</option>
-          <option value={6}>6% (고배당주)</option>
-          <option value={10}>10% (인덱스펀드)</option>
-          <option value={20}>20% (워렌 버핏)</option>
-          <option value={30}>30% (트레이더)</option>
-          <option value={50}>50% (투자의신?)</option>
-        </select>
+        <div className="input-group">
+          <input 
+            type="number"
+            className="form-input"
+            placeholder="예) 30"
+            value={inputs.dividendRate}
+            onChange={(e) => onInputChange('dividendRate', Number(e.target.value))}
+            min="0"
+            step="0.1"
+          />
+          <span className="input-suffix">%</span>
+        </div>
         <div className="help-text">
           목표 자산에서 받을 연 배당/분배 수익률 (기본값: 4%)
         </div>
         
-        {inputs.monthlyIncome > 0 && inputs.targetYears && (
-          <div className="dividend-comparison">
-            <div className="comparison-title">💰 수익율별 필요 자산</div>
-            <div className="comparison-grid">
-              {[4, 6, 10, 20, 30, 50].map(rate => {
-                const inflationRate = inputs.inflation / 100
-                const futureMonthlyIncome = inputs.monthlyIncome * Math.pow(1 + inflationRate, inputs.targetYears)
-                const requiredAsset = (futureMonthlyIncome * 12) / (rate / 100)
-                const isSelected = rate === inputs.dividendRate
-                return (
-                  <div 
-                    key={rate} 
-                    className={`comparison-item ${isSelected ? 'selected' : ''}`}
-                    onClick={() => onInputChange('dividendRate', rate)}
-                  >
-                    <div className="rate">{rate}%</div>
-                    <div className="asset">{formatNumber(Math.round(requiredAsset))}만원</div>
-                  </div>
-                )
-              })}
-            </div>
+        <div className="dividend-comparison">
+          <div className="comparison-title">💰 투자 유형별 수익율</div>
+          <div className="comparison-grid">
+            {[
+              { rate: 4, label: '예적금' },
+              { rate: 6, label: '고배당주' },
+              { rate: 10, label: '인덱스펀드' },
+              { rate: 20, label: '워런 버핏' },
+              { rate: 30, label: '트레이더' },
+              { rate: 50, label: '투자의신?' },
+              { rate: 100, label: '1년 두배' },
+              { rate: 200, label: '1년 3배' },
+              { rate: 300, label: '1년 4배' }
+            ].map(({ rate, label }) => {
+              const isSelected = rate === inputs.dividendRate
+              return (
+                <div 
+                  key={rate} 
+                  className={`comparison-item ${isSelected ? 'selected' : ''}`}
+                  onClick={() => onInputChange('dividendRate', rate)}
+                >
+                  <div className="rate">{rate}%</div>
+                  <div className="asset">{label}</div>
+                </div>
+              )
+            })}
           </div>
-        )}
+        </div>
         
         {previewAsset && (
           <div className="feedback-message info">
@@ -208,21 +213,6 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             📊 현재 {formatNumber(inputs.currentAssets)}만원 → 목표 {formatNumber(Math.round(previewAsset))}만원
             <br />
             약 <strong>{formatNumber(Math.round(gap))}만원</strong>을 더 증식해야 합니다
-          </div>
-        )}
-        
-        {requiredReturnPreview !== null && inputs.currentAssets && (
-          <div className="required-return-preview">
-            <div className="preview-icon">🎯</div>
-            <div className="preview-content">
-              <strong>필요 수익율 미리보기:</strong>
-              <br />
-              목표를 달성하려면 최소 <strong>{requiredReturnPreview.toFixed(2)}%</strong>의 연평균 수익률이 필요합니다.
-              <br />
-              <span className="small-text">
-                (가장 높은 수익율 50% 기준, {inputs.inflation > 0 ? `인플레이션 ${inputs.inflation}% 반영` : '인플레이션 미반영'})
-              </span>
-            </div>
           </div>
         )}
       </div>
