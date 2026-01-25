@@ -68,14 +68,32 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
            inputs.currentAssets
   }
 
-  const targetYearOptions = [
-    { value: 1, label: '1년 후' },
-    { value: 3, label: '3년 후' },
-    { value: 5, label: '5년 후' },
-    { value: 10, label: '10년 후' },
-    { value: 15, label: '15년 후' },
-    { value: 20, label: '20년 후' }
+  const targetYearButtons = [
+    { value: 1, label: '1년', message: '단기 목표로 시작하시는군요! 🚀' },
+    { value: 3, label: '3년', message: '중기 목표로 계획하시는군요! 📈' },
+    { value: 5, label: '5년', message: '5년 후를 목표로 하셨군요! 👍' },
+    { value: 10, label: '10년', message: '장기 목표로 준비하시는군요! 💪' },
+    { value: 20, label: '20년', message: '장기적인 계획이시군요! 🌟' },
+    { value: 30, label: '30년', message: '미래를 위한 큰 계획이시군요! 🎯' }
   ]
+
+  const handleTargetYearsAdjust = (delta) => {
+    const currentValue = inputs.targetYears || 0
+    const newValue = Math.max(0, currentValue + delta)
+    onInputChange('targetYears', newValue)
+  }
+
+  const handleMonthlyIncomeAdjust = (delta) => {
+    const currentValue = inputs.monthlyIncome || 0
+    const newValue = Math.max(0, currentValue + (delta * 100))
+    onInputChange('monthlyIncome', newValue)
+  }
+
+  const handleDividendRateAdjust = (delta) => {
+    const currentValue = inputs.dividendRate || 0
+    const newValue = Math.max(0, currentValue + (delta * 2))
+    onInputChange('dividendRate', newValue)
+  }
 
   return (
     <div className="input-form">
@@ -85,23 +103,59 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
           <span className="label-text">목표 시점</span>
           <span className="label-required">*</span>
         </label>
-        <select 
-          className="form-select"
-          value={inputs.targetYears}
-          onChange={(e) => onInputChange('targetYears', Number(e.target.value))}
-        >
-          <option value="">선택해주세요</option>
-          {targetYearOptions.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        <div className="input-group">
+          <input 
+            type="number"
+            className="form-input"
+            placeholder="예) 5"
+            value={inputs.targetYears}
+            onChange={(e) => onInputChange('targetYears', Number(e.target.value))}
+            min="0"
+          />
+          <span className="input-suffix">년</span>
+          <div className="input-buttons">
+            <button 
+              type="button"
+              className="input-btn input-btn-up"
+              onClick={() => handleTargetYearsAdjust(1)}
+              aria-label="증가"
+            >
+              ▲
+            </button>
+            <button 
+              type="button"
+              className="input-btn input-btn-down"
+              onClick={() => handleTargetYearsAdjust(-1)}
+              aria-label="감소"
+            >
+              ▼
+            </button>
+          </div>
+        </div>
         {inputs.targetYears && (
           <div className="feedback-message success">
             {inputs.targetYears}년 후를 목표로 하셨군요! 👍
           </div>
         )}
+        
+        <div className="target-year-buttons">
+          <div className="comparison-title">📅 목표 기간 선택</div>
+          <div className="comparison-grid">
+            {targetYearButtons.map(({ value, label, message }) => {
+              const isSelected = value === inputs.targetYears
+              return (
+                <div 
+                  key={value} 
+                  className={`comparison-item ${isSelected ? 'selected' : ''}`}
+                  onClick={() => onInputChange('targetYears', value)}
+                >
+                  <div className="rate">{label}</div>
+                  <div className="asset">{message}</div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="form-section">
@@ -120,6 +174,24 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             min="0"
           />
           <span className="input-suffix">만원</span>
+          <div className="input-buttons">
+            <button 
+              type="button"
+              className="input-btn input-btn-up"
+              onClick={() => handleMonthlyIncomeAdjust(1)}
+              aria-label="100만원 증가"
+            >
+              ▲
+            </button>
+            <button 
+              type="button"
+              className="input-btn input-btn-down"
+              onClick={() => handleMonthlyIncomeAdjust(-1)}
+              aria-label="100만원 감소"
+            >
+              ▼
+            </button>
+          </div>
         </div>
         {inputs.monthlyIncome > 0 && (
           <div className="annual-income-display">
@@ -145,6 +217,24 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             step="0.1"
           />
           <span className="input-suffix">%</span>
+          <div className="input-buttons">
+            <button 
+              type="button"
+              className="input-btn input-btn-up"
+              onClick={() => handleDividendRateAdjust(1)}
+              aria-label="2% 증가"
+            >
+              ▲
+            </button>
+            <button 
+              type="button"
+              className="input-btn input-btn-down"
+              onClick={() => handleDividendRateAdjust(-1)}
+              aria-label="2% 감소"
+            >
+              ▼
+            </button>
+          </div>
         </div>
         <div className="help-text">
           목표 자산에서 받을 연 배당/분배 수익률 (기본값: 4%)
