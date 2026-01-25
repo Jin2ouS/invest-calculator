@@ -210,6 +210,31 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             📅 연간 목표: <strong>{formatNumber(inputs.monthlyIncome * 12)}만원</strong>
           </div>
         )}
+        
+        <div className="monthly-income-buttons">
+          <div className="comparison-title">💰 월 현금흐름 빠른 선택</div>
+          <div className="comparison-grid">
+            {[
+              { value: 100, label: '100만원' },
+              { value: 200, label: '200만원' },
+              { value: 300, label: '300만원' },
+              { value: 500, label: '500만원' },
+              { value: 1000, label: '1000만원' },
+              { value: 2000, label: '2000만원' }
+            ].map(({ value, label }) => {
+              const isSelected = value === inputs.monthlyIncome
+              return (
+                <div 
+                  key={value} 
+                  className={`comparison-item ${isSelected ? 'selected' : ''}`}
+                  onClick={() => onInputChange('monthlyIncome', value)}
+                >
+                  <div className="rate">{label}</div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="form-section">
@@ -335,6 +360,44 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
             약 <strong>{formatNumber(Math.round(gap))}만원</strong>을 더 증식해야 합니다
           </div>
         )}
+        
+        <div className="current-assets-buttons">
+          <div className="comparison-title">💵 자산 금액 빠른 조정</div>
+          <div className="comparison-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
+            <div 
+              className="comparison-item"
+              onClick={() => handleCurrentAssetsAdjust(1)}
+            >
+              <div className="rate">+100만원</div>
+            </div>
+            <div 
+              className="comparison-item"
+              onClick={() => handleCurrentAssetsAdjust(-1)}
+            >
+              <div className="rate">-100만원</div>
+            </div>
+            <div 
+              className="comparison-item"
+              onClick={() => {
+                const currentValue = inputs.currentAssets || 0
+                const newValue = Math.max(0, currentValue + 1000)
+                onInputChange('currentAssets', newValue)
+              }}
+            >
+              <div className="rate">+1000만원</div>
+            </div>
+            <div 
+              className="comparison-item"
+              onClick={() => {
+                const currentValue = inputs.currentAssets || 0
+                const newValue = Math.max(0, currentValue - 1000)
+                onInputChange('currentAssets', newValue)
+              }}
+            >
+              <div className="rate">-1000만원</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="form-section">
@@ -385,7 +448,8 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
               { value: 1, label: '1%', description: '낮음' },
               { value: 2, label: '2%', description: '보통' },
               { value: 3, label: '3%', description: '높음' },
-              { value: 4, label: '4%', description: '매우 높음' }
+              { value: 4, label: '4%', description: '매우 높음' },
+              { value: 6, label: '6%', description: '초고 인플레이션' }
             ].map(({ value, label, description }) => {
               const isSelected = value === inputs.inflation
               return (
