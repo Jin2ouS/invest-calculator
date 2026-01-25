@@ -152,21 +152,23 @@ function ResultDisplay({ result, inputs }) {
             <thead>
               <tr>
                 <th>연도</th>
-                <th>자산 (만원)</th>
-                <th>증가액 (만원)</th>
+                <th>자산</th>
                 <th>수익률</th>
+                <th>증가액</th>
               </tr>
             </thead>
             <tbody>
               {result.yearlyData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.year}년차</td>
-                  <td className="text-right">{formatNumber(data.asset)}</td>
                   <td className="text-right">
-                    {index === 0 ? '-' : formatNumber(data.asset - result.yearlyData[index - 1].asset)}
+                    {formatNumber(data.asset) + '만원'}
                   </td>
                   <td className="text-right">
                     {index === 0 ? '-' : formatPercent(result.requiredAnnualReturn) + '%'}
+                  </td>
+                  <td className="text-right">
+                    {index === 0 ? '-' : formatNumber(data.asset - result.yearlyData[index - 1].asset) + '만원'}
                   </td>
                 </tr>
               ))}
