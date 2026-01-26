@@ -413,6 +413,11 @@
   font-size: 0.95rem;
 }
 
+.data-table td.asset-cell {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
 .text-right {
   text-align: right;
 }

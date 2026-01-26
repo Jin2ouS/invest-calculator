@@ -131,7 +131,7 @@ function ResultDisplay({ result, inputs }) {
 
       {/* 연도별 차트 */}
       <div className="chart-section">
-        <h3 className="section-title">투자 년차 - 자산 증가</h3>
+        <h3 className="section-title">투자 시점별 자산금액</h3>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={chartData} margin={{ top: 5, right: 20, left: 20, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -285,7 +285,7 @@ function ResultDisplay({ result, inputs }) {
 
       {/* 연도별 테이블 */}
       <div className="table-section">
-        <h3 className="section-title">연도별 상세 정보</h3>
+        <h3 className="section-title">년도별 자산 변동</h3>
         <div className="table-wrapper">
           <table className="data-table">
             <thead>
@@ -300,14 +300,14 @@ function ResultDisplay({ result, inputs }) {
               {result.yearlyData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.year}년차</td>
-                  <td className="text-right">
+                  <td className="text-right asset-cell">
                     {formatNumber(data.asset) + '만원'}
                   </td>
                   <td className="text-right">
                     {index === 0 ? '-' : formatPercent(result.requiredAnnualReturn) + '%'}
                   </td>
                   <td className="text-right">
-                    {index === 0 ? '-' : formatNumber(data.asset - result.yearlyData[index - 1].asset) + '만원'}
+                    {index === 0 ? '-' : '+' + formatNumber(data.asset - result.yearlyData[index - 1].asset) + '만원'}
                   </td>
                 </tr>
               ))}
