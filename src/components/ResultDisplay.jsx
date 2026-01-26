@@ -1,7 +1,12 @@
+import { useState } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts'
 import './ResultDisplay.css'
 
 function ResultDisplay({ result, inputs }) {
+  const [simulationStartAmount, setSimulationStartAmount] = useState('')
+  const [simulationReturnRate, setSimulationReturnRate] = useState('')
+  const [simulationData, setSimulationData] = useState(null)
+
   const formatNumber = (num) => {
     return new Intl.NumberFormat('ko-KR').format(Math.round(num))
   }
@@ -9,6 +14,48 @@ function ResultDisplay({ result, inputs }) {
   const formatPercent = (num) => {
     return num.toFixed(2)
   }
+
+  const calculateSimulation = () => {
+    if (!simulationStartAmount || !simulationReturnRate) {
+      return
+    }
+
+    const startAmount = Number(simulationStartAmount)
+    const returnRate = Number(simulationReturnRate) / 100
+    const years = inputs.targetYears || 1
+
+    const simulationYearlyData = []
+    for (let year = 0; year <= years; year++) {
+      const asset = startAmount * Math.pow(1 + returnRate, year)
+      simulationYearlyData.push({
+        year,
+        asset: Math.round(asset)
+      })
+    }
+
+    setSimulationData(simulationYearlyData)
+  }
+
+  const handleSimulationStartAmountAdjust = (delta) => {
+    const currentValue = Number(simulationStartAmount) || 0
+    const newValue = Math.max(0, currentValue + (delta * 100))
+    setSimulationStartAmount(newValue.toString())
+  }
+
+  const handleSimulationReturnRateAdjust = (delta) => {
+    const currentValue = Number(simulationReturnRate) || 0
+    const newValue = Math.max(0, currentValue + (delta * 10))
+    setSimulationReturnRate(newValue.toString())
+  }
+
+  // 차트 데이터에 시뮬레이션 데이터 병합
+  const chartData = result.yearlyData.map((data, index) => {
+    const chartItem = { ...data }
+    if (simulationData && simulationData[index]) {
+      chartItem.simulationAsset = simulationData[index].asset
+    }
+    return chartItem
+  })
 
   return (
     <div className="result-display">
@@ -84,9 +131,9 @@ function ResultDisplay({ result, inputs }) {
 
       {/* 연도별 차트 */}
       <div className="chart-section">
-        <h3 className="section-title">연도별 자산 증가 추이 (필요 수익율 vs 목표 수익율)</h3>
+        <h3 className="section-title">투자 년차 - 자산 증가</h3>
         <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={result.yearlyData} margin={{ top: 5, right: 20, left: 20, bottom: 20 }}>
+          <LineChart data={chartData} margin={{ top: 5, right: 20, left: 20, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis 
               dataKey="year" 
@@ -112,7 +159,7 @@ function ResultDisplay({ result, inputs }) {
               stroke="#3b82f6" 
               strokeWidth={3}
               dot={{ r: 4 }}
-              name="필요 수익율로 달성"
+              name="필요 수익율"
             />
             <Line 
               type="monotone" 
@@ -121,8 +168,19 @@ function ResultDisplay({ result, inputs }) {
               strokeWidth={3}
               strokeDasharray="5 5"
               dot={{ r: 4 }}
-              name="목표 수익율로 달성"
+              name="목표 수익율"
             />
+            {simulationData && (
+              <Line 
+                type="monotone" 
+                dataKey="simulationAsset" 
+                stroke="#f59e0b" 
+                strokeWidth={3}
+                strokeDasharray="3 3"
+                dot={{ r: 4 }}
+                name={`시뮬레이션 (${simulationReturnRate}%)`}
+              />
+            )}
           </LineChart>
         </ResponsiveContainer>
         <div className="chart-legend-info">
@@ -134,12 +192,93 @@ function ResultDisplay({ result, inputs }) {
             <span className="legend-line target"></span>
             <span>목표 수익율 ({inputs.dividendRate}%)</span>
           </div>
+          {simulationData && (
+            <div className="legend-item">
+              <span className="legend-line simulation"></span>
+              <span>시뮬레이션 ({simulationReturnRate}%)</span>
+            </div>
+          )}
           <div className="legend-gap">
             <strong>GAP:</strong> {formatPercent(inputs.dividendRate - result.requiredAnnualReturn)}%
             {inputs.dividendRate >= result.requiredAnnualReturn ? 
               <span className="gap-positive"> ✅ 달성 가능</span> : 
               <span className="gap-negative"> ⚠️ 수익률 부족</span>
             }
+          </div>
+        </div>
+        <div className="chart-simulation-controls">
+          <div className="simulation-title">추가 시뮬레이션</div>
+          <div className="simulation-inputs">
+            <div className="simulation-input-group">
+              <label className="simulation-label">투자 시작금액 (만원)</label>
+              <div className="simulation-input-wrapper">
+                <input
+                  type="number"
+                  className="simulation-input"
+                  placeholder="예) 200"
+                  value={simulationStartAmount}
+                  onChange={(e) => setSimulationStartAmount(e.target.value)}
+                  min="0"
+                />
+                <div className="simulation-input-buttons">
+                  <button 
+                    type="button"
+                    className="simulation-input-btn simulation-input-btn-up"
+                    onClick={() => handleSimulationStartAmountAdjust(1)}
+                    aria-label="100만원 증가"
+                  >
+                    ▲
+                  </button>
+                  <button 
+                    type="button"
+                    className="simulation-input-btn simulation-input-btn-down"
+                    onClick={() => handleSimulationStartAmountAdjust(-1)}
+                    aria-label="100만원 감소"
+                  >
+                    ▼
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="simulation-input-group">
+              <label className="simulation-label">연수익율 (%)</label>
+              <div className="simulation-input-wrapper">
+                <input
+                  type="number"
+                  className="simulation-input"
+                  placeholder="예) 10"
+                  value={simulationReturnRate}
+                  onChange={(e) => setSimulationReturnRate(e.target.value)}
+                  min="0"
+                  step="0.1"
+                />
+                <div className="simulation-input-buttons">
+                  <button 
+                    type="button"
+                    className="simulation-input-btn simulation-input-btn-up"
+                    onClick={() => handleSimulationReturnRateAdjust(1)}
+                    aria-label="10% 증가"
+                  >
+                    ▲
+                  </button>
+                  <button 
+                    type="button"
+                    className="simulation-input-btn simulation-input-btn-down"
+                    onClick={() => handleSimulationReturnRateAdjust(-1)}
+                    aria-label="10% 감소"
+                  >
+                    ▼
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              className="simulation-button"
+              onClick={calculateSimulation}
+              disabled={!simulationStartAmount || !simulationReturnRate}
+            >
+              차트 표시
+            </button>
           </div>
         </div>
       </div>

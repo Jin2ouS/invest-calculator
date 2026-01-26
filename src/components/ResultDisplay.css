@@ -192,6 +192,17 @@
   );
 }
 
+.legend-line.simulation {
+  background: #f59e0b;
+  background-image: repeating-linear-gradient(
+    to right,
+    #f59e0b,
+    #f59e0b 3px,
+    transparent 3px,
+    transparent 6px
+  );
+}
+
 .legend-gap {
   display: flex;
   align-items: center;
@@ -216,6 +227,141 @@
 .gap-negative {
   color: #ef4444;
   font-weight: 600;
+}
+
+.chart-simulation-controls {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.simulation-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.simulation-inputs {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.simulation-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 150px;
+}
+
+.simulation-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.simulation-input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+/* Remove default number input spinners */
+.simulation-input[type="number"]::-webkit-inner-spin-button,
+.simulation-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.simulation-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.simulation-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.simulation-input-buttons {
+  position: absolute;
+  right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 1;
+}
+
+.simulation-input-btn {
+  width: 24px;
+  height: 18px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: #6b7280;
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.simulation-input-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #1f2937;
+}
+
+.simulation-input-btn:active {
+  background: #e5e7eb;
+  transform: scale(0.95);
+}
+
+.simulation-input-btn-up {
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
+
+.simulation-input-btn-down {
+  border-radius: 0 0 4px 4px;
+}
+
+
+.simulation-button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.simulation-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.simulation-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .table-section {

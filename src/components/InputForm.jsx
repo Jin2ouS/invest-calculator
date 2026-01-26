@@ -110,39 +110,44 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
   return (
     <div className="input-form">
       <div className="form-section">
-        <div className="step-indicator">STEP 1</div>
+        <div className="step-header">
+          <div className="step-indicator">STEP 1</div>
+          <div className="step-title">목표 시점</div>
+        </div>
         <label className="form-label">
-          <span className="label-text">목표 시점</span>
+          <span className="label-text">현재부터 투자목표 시점까지의 기간을 입력하세요</span>
           <span className="label-required">*</span>
         </label>
         <div className="input-group">
-          <input 
-            type="number"
-            className="form-input"
-            placeholder="예) 5"
-            value={inputs.targetYears}
-            onChange={(e) => onInputChange('targetYears', Number(e.target.value))}
-            min="0"
-          />
-          <span className="input-suffix">년</span>
-          <div className="input-buttons">
-            <button 
-              type="button"
-              className="input-btn input-btn-up"
-              onClick={() => handleTargetYearsAdjust(1)}
-              aria-label="증가"
-            >
-              ▲
-            </button>
-            <button 
-              type="button"
-              className="input-btn input-btn-down"
-              onClick={() => handleTargetYearsAdjust(-1)}
-              aria-label="감소"
-            >
-              ▼
-            </button>
+          <div className="input-wrapper">
+            <input 
+              type="number"
+              className="form-input"
+              placeholder="예) 5"
+              value={inputs.targetYears}
+              onChange={(e) => onInputChange('targetYears', Number(e.target.value))}
+              min="0"
+            />
+            <div className="input-buttons">
+              <button 
+                type="button"
+                className="input-btn input-btn-up"
+                onClick={() => handleTargetYearsAdjust(1)}
+                aria-label="증가"
+              >
+                ▲
+              </button>
+              <button 
+                type="button"
+                className="input-btn input-btn-down"
+                onClick={() => handleTargetYearsAdjust(-1)}
+                aria-label="감소"
+              >
+                ▼
+              </button>
+            </div>
           </div>
+          <span className="input-suffix">년</span>
         </div>
         {inputs.targetYears && (
           <div className="feedback-message success">
@@ -171,39 +176,44 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       </div>
 
       <div className="form-section">
-        <div className="step-indicator">STEP 2</div>
+        <div className="step-header">
+          <div className="step-indicator">STEP 2</div>
+          <div className="step-title">목표 금액</div>
+        </div>
         <label className="form-label">
-          <span className="label-text">목표 월 현금흐름</span>
+          <span className="label-text">원하시는 매월 현금흐름 금액을 입력하세요</span>
           <span className="label-required">*</span>
         </label>
         <div className="input-group">
-          <input 
-            type="number"
-            className="form-input"
-            placeholder="예) 300"
-            value={inputs.monthlyIncome}
-            onChange={(e) => onInputChange('monthlyIncome', Number(e.target.value))}
-            min="0"
-          />
-          <span className="input-suffix">만원</span>
-          <div className="input-buttons">
-            <button 
-              type="button"
-              className="input-btn input-btn-up"
-              onClick={() => handleMonthlyIncomeAdjust(1)}
-              aria-label="100만원 증가"
-            >
-              ▲
-            </button>
-            <button 
-              type="button"
-              className="input-btn input-btn-down"
-              onClick={() => handleMonthlyIncomeAdjust(-1)}
-              aria-label="100만원 감소"
-            >
-              ▼
-            </button>
+          <div className="input-wrapper">
+            <input 
+              type="number"
+              className="form-input"
+              placeholder="예) 300"
+              value={inputs.monthlyIncome}
+              onChange={(e) => onInputChange('monthlyIncome', Number(e.target.value))}
+              min="0"
+            />
+            <div className="input-buttons">
+              <button 
+                type="button"
+                className="input-btn input-btn-up"
+                onClick={() => handleMonthlyIncomeAdjust(1)}
+                aria-label="100만원 증가"
+              >
+                ▲
+              </button>
+              <button 
+                type="button"
+                className="input-btn input-btn-down"
+                onClick={() => handleMonthlyIncomeAdjust(-1)}
+                aria-label="100만원 감소"
+              >
+                ▼
+              </button>
+            </div>
           </div>
+          <span className="input-suffix">만원</span>
         </div>
         {inputs.monthlyIncome > 0 && (
           <div className="annual-income-display">
@@ -220,7 +230,10 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
               { value: 300, label: '300만원' },
               { value: 500, label: '500만원' },
               { value: 1000, label: '1000만원' },
-              { value: 2000, label: '2000만원' }
+              { value: 2000, label: '2000만원' },
+              { value: 3000, label: '3000만원' },
+              { value: 5000, label: '5000만원' },
+              { value: 10000, label: '1억원' }
             ].map(({ value, label }) => {
               const isSelected = value === inputs.monthlyIncome
               return (
@@ -238,40 +251,45 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       </div>
 
       <div className="form-section">
-        <div className="step-indicator">STEP 3</div>
+        <div className="step-header">
+          <div className="step-indicator">STEP 3</div>
+          <div className="step-title">목표 수익율</div>
+        </div>
         <label className="form-label">
-          <span className="label-text">목표 수익율</span>
+          <span className="label-text">목표로 하는 연간 수익율을 입력하세요</span>
           <span className="label-required">*</span>
         </label>
         <div className="input-group">
-          <input 
-            type="number"
-            className="form-input"
-            placeholder="예) 30"
-            value={inputs.dividendRate}
-            onChange={(e) => onInputChange('dividendRate', Number(e.target.value))}
-            min="0"
-            step="0.1"
-          />
-          <span className="input-suffix">%</span>
-          <div className="input-buttons">
-            <button 
-              type="button"
-              className="input-btn input-btn-up"
-              onClick={() => handleDividendRateAdjust(1)}
-              aria-label="2% 증가"
-            >
-              ▲
-            </button>
-            <button 
-              type="button"
-              className="input-btn input-btn-down"
-              onClick={() => handleDividendRateAdjust(-1)}
-              aria-label="2% 감소"
-            >
-              ▼
-            </button>
+          <div className="input-wrapper">
+            <input 
+              type="number"
+              className="form-input"
+              placeholder="예) 30"
+              value={inputs.dividendRate}
+              onChange={(e) => onInputChange('dividendRate', Number(e.target.value))}
+              min="0"
+              step="0.1"
+            />
+            <div className="input-buttons">
+              <button 
+                type="button"
+                className="input-btn input-btn-up"
+                onClick={() => handleDividendRateAdjust(1)}
+                aria-label="2% 증가"
+              >
+                ▲
+              </button>
+              <button 
+                type="button"
+                className="input-btn input-btn-down"
+                onClick={() => handleDividendRateAdjust(-1)}
+                aria-label="2% 감소"
+              >
+                ▼
+              </button>
+            </div>
           </div>
+          <span className="input-suffix">%</span>
         </div>
         <div className="help-text">
           목표 자산에서 받을 연 배당/분배 수익률 (기본값: 4%)
@@ -318,39 +336,44 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       </div>
 
       <div className="form-section">
-        <div className="step-indicator">STEP 4</div>
+        <div className="step-header">
+          <div className="step-indicator">STEP 4</div>
+          <div className="step-title">투자 시작 금액</div>
+        </div>
         <label className="form-label">
-          <span className="label-text">현재 투자자산 금액</span>
+          <span className="label-text">투자를 시작하는 금액을 알려주세요</span>
           <span className="label-required">*</span>
         </label>
         <div className="input-group">
-          <input 
-            type="number"
-            className="form-input"
-            placeholder="예) 5000"
-            value={inputs.currentAssets}
-            onChange={(e) => onInputChange('currentAssets', Number(e.target.value))}
-            min="0"
-          />
-          <span className="input-suffix">만원</span>
-          <div className="input-buttons">
-            <button 
-              type="button"
-              className="input-btn input-btn-up"
-              onClick={() => handleCurrentAssetsAdjust(1)}
-              aria-label="100만원 증가"
-            >
-              ▲
-            </button>
-            <button 
-              type="button"
-              className="input-btn input-btn-down"
-              onClick={() => handleCurrentAssetsAdjust(-1)}
-              aria-label="100만원 감소"
-            >
-              ▼
-            </button>
+          <div className="input-wrapper">
+            <input 
+              type="number"
+              className="form-input"
+              placeholder="예) 5000"
+              value={inputs.currentAssets}
+              onChange={(e) => onInputChange('currentAssets', Number(e.target.value))}
+              min="0"
+            />
+            <div className="input-buttons">
+              <button 
+                type="button"
+                className="input-btn input-btn-up"
+                onClick={() => handleCurrentAssetsAdjust(1)}
+                aria-label="100만원 증가"
+              >
+                ▲
+              </button>
+              <button 
+                type="button"
+                className="input-btn input-btn-down"
+                onClick={() => handleCurrentAssetsAdjust(-1)}
+                aria-label="100만원 감소"
+              >
+                ▼
+              </button>
+            </div>
           </div>
+          <span className="input-suffix">만원</span>
         </div>
         
         {gap !== null && inputs.currentAssets && (
@@ -401,40 +424,45 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       </div>
 
       <div className="form-section">
-        <div className="step-indicator">STEP 5</div>
+        <div className="step-header">
+          <div className="step-indicator">STEP 5</div>
+          <div className="step-title">물가 상승율</div>
+        </div>
         <label className="form-label">
-          <span className="label-text">인플레이션</span>
+          <span className="label-text">계산에 반영할 연간 인플레이션 비율을 선택하세요</span>
           <span className="label-optional">(선택사항)</span>
         </label>
         <div className="input-group">
-          <input 
-            type="number"
-            className="form-input"
-            placeholder="예) 2"
-            value={inputs.inflation}
-            onChange={(e) => onInputChange('inflation', Number(e.target.value))}
-            min="0"
-            step="0.1"
-          />
-          <span className="input-suffix">%</span>
-          <div className="input-buttons">
-            <button 
-              type="button"
-              className="input-btn input-btn-up"
-              onClick={() => handleInflationAdjust(1)}
-              aria-label="0.5% 증가"
-            >
-              ▲
-            </button>
-            <button 
-              type="button"
-              className="input-btn input-btn-down"
-              onClick={() => handleInflationAdjust(-1)}
-              aria-label="0.5% 감소"
-            >
-              ▼
-            </button>
+          <div className="input-wrapper">
+            <input 
+              type="number"
+              className="form-input"
+              placeholder="예) 2"
+              value={inputs.inflation}
+              onChange={(e) => onInputChange('inflation', Number(e.target.value))}
+              min="0"
+              step="0.1"
+            />
+            <div className="input-buttons">
+              <button 
+                type="button"
+                className="input-btn input-btn-up"
+                onClick={() => handleInflationAdjust(1)}
+                aria-label="0.5% 증가"
+              >
+                ▲
+              </button>
+              <button 
+                type="button"
+                className="input-btn input-btn-down"
+                onClick={() => handleInflationAdjust(-1)}
+                aria-label="0.5% 감소"
+              >
+                ▼
+              </button>
+            </div>
           </div>
+          <span className="input-suffix">%</span>
         </div>
         <div className="help-text">
           인플레이션을 고려하여 미래 가치를 조정합니다 (기본값: 0%)
