@@ -19,6 +19,12 @@ body {
   flex-direction: column;
 }
 
+/* Section separation - each section is a full page */
+#investment-calculator,
+#asset-review {
+  scroll-margin-top: 0;
+}
+
 @media (max-width: 768px) {
   .App {
     padding: 0;

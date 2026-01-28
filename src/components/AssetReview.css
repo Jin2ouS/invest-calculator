@@ -1,8 +1,10 @@
 .asset-review-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 1rem;
-  min-height: 50vh;
+  padding: 4rem 1rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  position: relative;
 }
 
 .asset-review-header {
@@ -248,7 +250,7 @@
 /* Mobile */
 @media (max-width: 640px) {
   .asset-review-container {
-    padding: 0 0.5rem 1.5rem 0.5rem;
+    padding: 3rem 0.5rem;
   }
 
   .asset-review-header {

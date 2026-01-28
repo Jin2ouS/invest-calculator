@@ -1,7 +1,10 @@
 .calculator-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem 2rem 1rem;
+  padding: 4rem 1rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
 }
 
 .calculator-header {
@@ -37,7 +40,7 @@
 
 @media (max-width: 768px) {
   .calculator-container {
-    padding: 0 0.5rem 1.5rem 0.5rem;
+    padding: 3rem 0.5rem;
   }
 
   .calculator-header h1 {

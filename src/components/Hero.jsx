@@ -135,9 +135,8 @@ function Hero() {
   const handleNavigation = (targetId) => {
     const targetElement = document.getElementById(targetId)
     if (targetElement) {
-      const offset = 80 // 네비게이션 높이 고려
       const elementPosition = targetElement.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - offset
+      const offsetPosition = elementPosition + window.pageYOffset
 
       window.scrollTo({
         top: offsetPosition,
