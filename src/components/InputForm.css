@@ -179,7 +179,7 @@
   align-items: center !important;
   flex: 0 0 auto !important;
   width: auto !important;
-  max-width: 80px !important;
+  max-width: 150px !important;
   min-width: 0;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
@@ -188,9 +188,9 @@
 
 .input-wrapper .form-input {
   width: 100% !important;
-  max-width: 80px !important;
+  max-width: 150px !important;
   padding-right: 2.5rem;
-  min-width: 40px;
+  min-width: 60px;
   box-sizing: border-box;
   flex-shrink: 0 !important;
   display: block !important;
