@@ -77,6 +77,11 @@
   font-family: inherit;
 }
 
+/* Override for input-group context */
+.input-group .form-input {
+  width: auto !important;
+}
+
 /* Remove default number input spinners */
 .form-input[type="number"]::-webkit-inner-spin-button,
 .form-input[type="number"]::-webkit-outer-spin-button {
@@ -101,30 +106,32 @@
 }
 
 .input-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
   position: relative;
   flex-wrap: nowrap !important;
   width: 100%;
+  min-width: 0;
 }
 
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  flex: 0 0 auto;
-  width: auto;
-  max-width: 180px;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: 140px !important;
   min-width: 0;
 }
 
 .input-wrapper .form-input {
-  width: 100%;
-  max-width: 180px;
+  width: 100% !important;
+  max-width: 140px !important;
   padding-right: 2.5rem;
-  min-width: 100px;
+  min-width: 80px;
   box-sizing: border-box;
+  flex-shrink: 1;
 }
 
 .input-suffix {
@@ -133,8 +140,9 @@
   font-size: 0.95rem;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  display: inline-block;
-  margin-left: 0;
+  display: inline-block !important;
+  margin-left: 0 !important;
+  line-height: 1;
 }
 
 .input-buttons {
@@ -448,20 +456,23 @@
 
   .input-group {
     flex-wrap: nowrap !important;
+    display: flex !important;
   }
 
   .input-wrapper {
-    max-width: 150px;
+    max-width: 120px !important;
+    flex: 0 0 auto !important;
   }
 
   .input-wrapper .form-input {
-    max-width: 150px;
-    min-width: 80px;
+    max-width: 120px !important;
+    min-width: 70px;
   }
 
   .input-suffix {
     white-space: nowrap !important;
     flex-shrink: 0 !important;
+    display: inline-block !important;
   }
 
   .button-group {
