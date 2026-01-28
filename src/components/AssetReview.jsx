@@ -145,207 +145,9 @@ function AssetReview() {
       <div className="asset-review-content">
         {/* 좌측: 입력 섹션 */}
         <div className="asset-review-inputs">
-          {/* 자산 입력 섹션 */}
-          <section className="input-section">
-            <h2 className="section-title">💰 자산 입력</h2>
-            <div className="input-grid">
-            <div className="asset-input-group">
-                <label className="input-label">부동산</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={assets.realEstate}
-                  onChange={(e) => handleAssetChange('realEstate', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('realEstate', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('realEstate', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">아파트, 오피스텔, 토지 등 부동산 자산</div>
-
-            <div className="asset-input-group">
-                <label className="input-label">주식</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={assets.stocks}
-                  onChange={(e) => handleAssetChange('stocks', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('stocks', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('stocks', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">개별 주식 및 주식형 펀드 투자금</div>
-
-            <div className="asset-input-group">
-                <label className="input-label">예적금,펀드</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={assets.bonds}
-                  onChange={(e) => handleAssetChange('bonds', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('bonds', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('bonds', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">예금, 적금, 채권형 펀드 등 안정적 자산</div>
-
-            <div className="asset-input-group">
-                <label className="input-label">현금성 자산</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={assets.cash}
-                  onChange={(e) => handleAssetChange('cash', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('cash', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('cash', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">현금, 당좌예금, MMDA 등 즉시 사용 가능한 자산</div>
-
-            <div className="asset-input-group">
-                <label className="input-label">기타</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={assets.other}
-                  onChange={(e) => handleAssetChange('other', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('other', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('other', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">기타 투자 자산 (암호화폐, 원자재 등)</div>
-            </div>
-
-            <div className="total-display">
-              <span className="total-label">총 자산</span>
-            <span className="total-value">{formatNumber(totalAssets)}만원</span>
-            </div>
-          </section>
-
-          {/* 고정수입 입력 섹션 */}
-          <section className="input-section">
-            <h2 className="section-title">💰 고정수입 입력</h2>
-            <div className="input-grid">
-            <div className="asset-input-group">
-                <label className="input-label">근로소득</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={income.salary}
-                  onChange={(e) => handleIncomeChange('salary', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('salary', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('salary', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">월 급여, 상여금 등 근로를 통한 소득</div>
-
-            <div className="asset-input-group">
-                <label className="input-label">자산소득</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={income.assetIncome}
-                  onChange={(e) => handleIncomeChange('assetIncome', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('assetIncome', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('assetIncome', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">배당금, 이자, 임대료 등 자산에서 발생하는 소득</div>
-
-            <div className="asset-input-group">
-                <label className="input-label">기타</label>
-              <div className="asset-input-row">
-                <div className="asset-input-wrapper">
-                  <input
-                  type="number"
-                  className="asset-form-input"
-                    placeholder="0"
-                  value={income.other}
-                  onChange={(e) => handleIncomeChange('other', e.target.value)}
-                  min="0"
-                  />
-                  <div className="asset-input-buttons">
-                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('other', 1)}>▲</button>
-                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('other', -1)}>▼</button>
-                  </div>
-                </div>
-                <span className="asset-input-suffix">만원</span>
-                </div>
-              </div>
-              <div className="input-description">사업소득, 기타 소득 등</div>
-            </div>
-
-            <div className="total-display">
-              <span className="total-label">월 총 수입</span>
-            <span className="total-value">{formatNumber(monthlyIncome)}만원</span>
-            </div>
-          </section>
-
           {/* 고정지출 입력 섹션 */}
           <section className="input-section">
-            <h2 className="section-title">💸 고정지출 입력</h2>
+            <h2 className="section-title">💸 고정지출</h2>
             <div className="input-grid">
             <div className="asset-input-group">
                 <label className="input-label">주거비</label>
@@ -483,6 +285,204 @@ function AssetReview() {
             <div className="total-display">
               <span className="total-label">월 총 지출</span>
             <span className="total-value">{formatNumber(monthlyExpenses)}만원</span>
+            </div>
+          </section>
+
+          {/* 고정수입 입력 섹션 */}
+          <section className="input-section">
+            <h2 className="section-title">💰 고정수입</h2>
+            <div className="input-grid">
+            <div className="asset-input-group">
+                <label className="input-label">근로소득</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={income.salary}
+                  onChange={(e) => handleIncomeChange('salary', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('salary', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('salary', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">월 급여, 상여금 등 근로를 통한 소득</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">자산소득</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={income.assetIncome}
+                  onChange={(e) => handleIncomeChange('assetIncome', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('assetIncome', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('assetIncome', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">배당금, 이자, 임대료 등 자산에서 발생하는 소득</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">기타</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={income.other}
+                  onChange={(e) => handleIncomeChange('other', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('other', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('other', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">사업소득, 기타 소득 등</div>
+            </div>
+
+            <div className="total-display">
+              <span className="total-label">월 총 수입</span>
+            <span className="total-value">{formatNumber(monthlyIncome)}만원</span>
+            </div>
+          </section>
+
+          {/* 보유자산 입력 섹션 */}
+          <section className="input-section">
+            <h2 className="section-title">💰 보유자산</h2>
+            <div className="input-grid">
+            <div className="asset-input-group">
+                <label className="input-label">부동산</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={assets.realEstate}
+                  onChange={(e) => handleAssetChange('realEstate', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('realEstate', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('realEstate', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">아파트, 오피스텔, 토지 등 부동산 자산</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">주식</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={assets.stocks}
+                  onChange={(e) => handleAssetChange('stocks', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('stocks', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('stocks', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">개별 주식 및 주식형 펀드 투자금</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">예적금,펀드</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={assets.bonds}
+                  onChange={(e) => handleAssetChange('bonds', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('bonds', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('bonds', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">예금, 적금, 채권형 펀드 등 안정적 자산</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">현금성 자산</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={assets.cash}
+                  onChange={(e) => handleAssetChange('cash', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('cash', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('cash', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">현금, 당좌예금, MMDA 등 즉시 사용 가능한 자산</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">기타</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={assets.other}
+                  onChange={(e) => handleAssetChange('other', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('other', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('other', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">기타 투자 자산 (암호화폐, 원자재 등)</div>
+            </div>
+
+            <div className="total-display">
+              <span className="total-label">총 자산</span>
+            <span className="total-value">{formatNumber(totalAssets)}만원</span>
             </div>
           </section>
         </div>
