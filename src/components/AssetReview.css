@@ -75,53 +75,102 @@
   margin-bottom: 1.5rem;
 }
 
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .input-label {
   font-size: 0.9375rem;
   font-weight: 600;
   color: #4a5568;
 }
 
-.input-wrapper {
+/* === InputForm-style controls (namespaced) === */
+.asset-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.asset-input-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.asset-input-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
   background: #f7fafc;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
-  padding: 0.75rem 1rem;
   transition: all 0.3s ease;
+  padding: 0.625rem 1rem;
 }
 
-.input-wrapper:focus-within {
+.asset-input-wrapper:focus-within {
   border-color: #667eea;
   background: white;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.form-input {
-  flex: 1;
+.asset-form-input {
+  width: 100%;
   border: none;
   background: transparent;
   font-size: 1rem;
   color: #2d3748;
   outline: none;
+  padding-right: 2.5rem;
 }
 
-.form-input::placeholder {
+.asset-form-input::placeholder {
   color: #a0aec0;
 }
 
-.input-unit {
-  font-size: 0.875rem;
-  color: #718096;
-  font-weight: 500;
-  min-width: 24px;
+.asset-input-buttons {
+  position: absolute;
+  right: 6px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.asset-input-btn {
+  width: 24px;
+  height: 18px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #6b7280;
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.asset-input-btn:hover {
+  background: #f3f4f6;
+  border-color: #cbd5e1;
+  color: #1f2937;
+}
+
+.asset-input-btn-up {
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
+
+.asset-input-btn-down {
+  border-radius: 0 0 4px 4px;
+}
+
+.asset-input-suffix {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6b7280;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .total-display {

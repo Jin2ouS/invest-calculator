@@ -3,53 +3,67 @@ import './AssetReview.css'
 
 function AssetReview() {
   const [assets, setAssets] = useState({
-    cash: '',
-    stocks: '',
-    realEstate: '',
-    bonds: '',
-    other: ''
+    cash: 0,
+    stocks: 0,
+    realEstate: 0,
+    bonds: 0,
+    other: 0
   })
 
   const [expenses, setExpenses] = useState({
-    housing: '',
-    food: '',
-    transport: '',
-    communication: '',
-    insurance: '',
-    other: ''
+    housing: 0,
+    food: 0,
+    transport: 0,
+    communication: 0,
+    insurance: 0,
+    other: 0
   })
+
+  const clampNumber = (value) => {
+    const num = Number(value)
+    if (!Number.isFinite(num)) return 0
+    return Math.max(0, num)
+  }
 
   const handleAssetChange = (category, value) => {
     setAssets(prev => ({
       ...prev,
-      [category]: value
+      [category]: clampNumber(value)
     }))
   }
 
   const handleExpenseChange = (category, value) => {
     setExpenses(prev => ({
       ...prev,
-      [category]: value
+      [category]: clampNumber(value)
     }))
   }
 
-  const formatNumber = (value) => {
-    if (!value) return ''
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  const formatNumber = (num) => new Intl.NumberFormat('ko-KR').format(num)
+
+  const STEP_AMOUNT_MANWON = 10
+  const adjustAsset = (category, delta) => {
+    setAssets(prev => ({
+      ...prev,
+      [category]: Math.max(0, (prev[category] || 0) + delta * STEP_AMOUNT_MANWON)
+    }))
   }
 
-  const parseNumber = (value) => {
-    return value.replace(/,/g, '')
+  const adjustExpense = (category, delta) => {
+    setExpenses(prev => ({
+      ...prev,
+      [category]: Math.max(0, (prev[category] || 0) + delta * STEP_AMOUNT_MANWON)
+    }))
   }
 
   // 자산 합계 계산
   const totalAssets = Object.values(assets).reduce((sum, val) => {
-    return sum + (parseFloat(parseNumber(val)) || 0)
+    return sum + (val || 0)
   }, 0)
 
   // 지출 합계 계산
   const totalExpenses = Object.values(expenses).reduce((sum, val) => {
-    return sum + (parseFloat(parseNumber(val)) || 0)
+    return sum + (val || 0)
   }, 0)
 
   // 월 지출 계산
@@ -62,7 +76,7 @@ function AssetReview() {
     { key: 'realEstate', label: '부동산', value: assets.realEstate },
     { key: 'bonds', label: '채권', value: assets.bonds },
     { key: 'other', label: '기타', value: assets.other }
-  ].filter(item => parseFloat(parseNumber(item.value)) > 0)
+  ].filter(item => (item.value || 0) > 0)
 
   // 지출 카테고리별 비율 계산
   const expenseCategories = [
@@ -72,7 +86,7 @@ function AssetReview() {
     { key: 'communication', label: '통신비', value: expenses.communication },
     { key: 'insurance', label: '보험', value: expenses.insurance },
     { key: 'other', label: '기타', value: expenses.other }
-  ].filter(item => parseFloat(parseNumber(item.value)) > 0)
+  ].filter(item => (item.value || 0) > 0)
 
   return (
     <div id="asset-review" className="asset-review-container">
@@ -88,80 +102,115 @@ function AssetReview() {
           <section className="input-section">
             <h2 className="section-title">💰 자산 입력</h2>
             <div className="input-grid">
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">현금</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(assets.cash)}
-                    onChange={(e) => handleAssetChange('cash', parseNumber(e.target.value))}
+                  value={assets.cash}
+                  onChange={(e) => handleAssetChange('cash', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('cash', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('cash', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">주식</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(assets.stocks)}
-                    onChange={(e) => handleAssetChange('stocks', parseNumber(e.target.value))}
+                  value={assets.stocks}
+                  onChange={(e) => handleAssetChange('stocks', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('stocks', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('stocks', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">부동산</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(assets.realEstate)}
-                    onChange={(e) => handleAssetChange('realEstate', parseNumber(e.target.value))}
+                  value={assets.realEstate}
+                  onChange={(e) => handleAssetChange('realEstate', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('realEstate', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('realEstate', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">채권</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(assets.bonds)}
-                    onChange={(e) => handleAssetChange('bonds', parseNumber(e.target.value))}
+                  value={assets.bonds}
+                  onChange={(e) => handleAssetChange('bonds', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('bonds', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('bonds', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">기타</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(assets.other)}
-                    onChange={(e) => handleAssetChange('other', parseNumber(e.target.value))}
+                  value={assets.other}
+                  onChange={(e) => handleAssetChange('other', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustAsset('other', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustAsset('other', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
             </div>
 
             <div className="total-display">
               <span className="total-label">총 자산</span>
-              <span className="total-value">{formatNumber(totalAssets.toString())}원</span>
+            <span className="total-value">{formatNumber(totalAssets)}만원</span>
             </div>
           </section>
 
@@ -169,94 +218,136 @@ function AssetReview() {
           <section className="input-section">
             <h2 className="section-title">💸 고정지출 입력</h2>
             <div className="input-grid">
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">주거비</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(expenses.housing)}
-                    onChange={(e) => handleExpenseChange('housing', parseNumber(e.target.value))}
+                  value={expenses.housing}
+                  onChange={(e) => handleExpenseChange('housing', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustExpense('housing', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustExpense('housing', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">식비</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(expenses.food)}
-                    onChange={(e) => handleExpenseChange('food', parseNumber(e.target.value))}
+                  value={expenses.food}
+                  onChange={(e) => handleExpenseChange('food', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustExpense('food', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustExpense('food', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">교통비</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(expenses.transport)}
-                    onChange={(e) => handleExpenseChange('transport', parseNumber(e.target.value))}
+                  value={expenses.transport}
+                  onChange={(e) => handleExpenseChange('transport', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustExpense('transport', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustExpense('transport', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">통신비</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(expenses.communication)}
-                    onChange={(e) => handleExpenseChange('communication', parseNumber(e.target.value))}
+                  value={expenses.communication}
+                  onChange={(e) => handleExpenseChange('communication', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustExpense('communication', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustExpense('communication', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">보험</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(expenses.insurance)}
-                    onChange={(e) => handleExpenseChange('insurance', parseNumber(e.target.value))}
+                  value={expenses.insurance}
+                  onChange={(e) => handleExpenseChange('insurance', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustExpense('insurance', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustExpense('insurance', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
 
-              <div className="input-group">
+            <div className="asset-input-group">
                 <label className="input-label">기타</label>
-                <div className="input-wrapper">
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
                   <input
-                    type="text"
-                    className="form-input"
+                  type="number"
+                  className="asset-form-input"
                     placeholder="0"
-                    value={formatNumber(expenses.other)}
-                    onChange={(e) => handleExpenseChange('other', parseNumber(e.target.value))}
+                  value={expenses.other}
+                  onChange={(e) => handleExpenseChange('other', e.target.value)}
+                  min="0"
                   />
-                  <span className="input-unit">원</span>
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustExpense('other', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustExpense('other', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
                 </div>
               </div>
             </div>
 
             <div className="total-display">
               <span className="total-label">월 총 지출</span>
-              <span className="total-value">{formatNumber(monthlyExpenses.toString())}원</span>
+            <span className="total-value">{formatNumber(monthlyExpenses)}만원</span>
             </div>
           </section>
         </div>
@@ -272,7 +363,7 @@ function AssetReview() {
                   <h3 className="analysis-title">자산 구성</h3>
                   <div className="category-list">
                     {assetCategories.map((category) => {
-                      const value = parseFloat(parseNumber(category.value)) || 0
+                    const value = category.value || 0
                       const percentage = ((value / totalAssets) * 100).toFixed(1)
                       return (
                         <div key={category.key} className="category-item">
@@ -286,7 +377,7 @@ function AssetReview() {
                               style={{ width: `${percentage}%` }}
                             />
                           </div>
-                          <div className="category-value">{formatNumber(category.value)}원</div>
+                        <div className="category-value">{formatNumber(value)}만원</div>
                         </div>
                       )
                     })}
@@ -299,7 +390,7 @@ function AssetReview() {
                   <h3 className="analysis-title">지출 구성</h3>
                   <div className="category-list">
                     {expenseCategories.map((category) => {
-                      const value = parseFloat(parseNumber(category.value)) || 0
+                    const value = category.value || 0
                       const percentage = ((value / totalExpenses) * 100).toFixed(1)
                       return (
                         <div key={category.key} className="category-item">
@@ -313,7 +404,7 @@ function AssetReview() {
                               style={{ width: `${percentage}%` }}
                             />
                           </div>
-                          <div className="category-value">{formatNumber(category.value)}원</div>
+                        <div className="category-value">{formatNumber(value)}만원</div>
                         </div>
                       )
                     })}
