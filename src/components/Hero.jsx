@@ -3,6 +3,7 @@ import './Hero.css'
 
 function Hero({ title = '투자 계산기', subtitle = 'Investment Calculator', description = '당신의 재무 목표를 달성하기 위한 정확한 투자 수익률을 계산하세요.\n데이터 기반의 스마트한 투자 계획을 시작하세요.' }) {
   const [isMuted, setIsMuted] = useState(true)
+  const [iframeKey, setIframeKey] = useState(0)
   const iframeRef = useRef(null)
 
   // iframe 로드 후 기본 음소거 설정
@@ -118,7 +119,14 @@ function Hero({ title = '투자 계산기', subtitle = 'Investment Calculator', 
   }, [isMuted])
 
   const toggleMute = () => {
-    setIsMuted(prev => !prev)
+    setIsMuted(prev => {
+      const newMuted = !prev
+      // iframe을 재로드하여 음소거 상태 적용
+      if (newMuted) {
+        setIframeKey(prev => prev + 1)
+      }
+      return newMuted
+    })
   }
 
   return (
@@ -150,13 +158,15 @@ function Hero({ title = '투자 계산기', subtitle = 'Investment Calculator', 
         </div>
         <div className="hero-visual">
           <iframe 
+            key={iframeKey}
             ref={iframeRef}
-            src='https://my.spline.design/aboveandbeyond-F6DKYvVp9hqffVN4J3d9QJgT/?muted=true' 
+            src={`https://my.spline.design/aboveandbeyond-F6DKYvVp9hqffVN4J3d9QJgT/${isMuted ? '?muted=true' : ''}`}
             frameBorder='0' 
             width='100%' 
             height='100%'
             title="3D Animation"
             allow="autoplay"
+            style={{ pointerEvents: 'auto' }}
           />
           <button 
             className="audio-toggle-btn"

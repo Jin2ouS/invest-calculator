@@ -131,7 +131,7 @@
   bottom: 0;
   right: 0;
   width: 180px;
-  height: 40px;
+  height: 60px;
   background: white;
   z-index: 15;
   pointer-events: none;
@@ -228,7 +228,7 @@
 
   .spline-logo-overlay {
     width: 160px;
-    height: 36px;
+    height: 54px;
   }
 
   .hero-text {
@@ -272,7 +272,7 @@
 
   .spline-logo-overlay {
     width: 140px;
-    height: 32px;
+    height: 48px;
   }
 
   .hero-cta {
