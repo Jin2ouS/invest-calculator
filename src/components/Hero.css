@@ -132,7 +132,7 @@
   right: 0;
   width: 180px;
   height: 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: white;
   z-index: 15;
   pointer-events: none;
   border-radius: 20px 0 0 0;
