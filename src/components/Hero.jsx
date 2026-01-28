@@ -3,14 +3,9 @@ import { Link, useLocation } from 'react-router-dom'
 import './Hero.css'
 
 function Hero() {
-  const location = useLocation()
-  const isAssetsPage = location.pathname === '/assets'
-  
-  const title = isAssetsPage ? '현재 자산 돌아보기' : '투자 계산기'
-  const subtitle = isAssetsPage ? 'Asset Review' : 'Investment Calculator'
-  const description = isAssetsPage 
-    ? '나의 자산과 고정지출을 입력하고 분석해보세요.\n카테고리별로 구분하여 한눈에 파악하세요.'
-    : '당신의 재무 목표를 달성하기 위한 정확한 투자 수익률을 계산하세요.\n데이터 기반의 스마트한 투자 계획을 시작하세요.'
+  const title = '투자 계산기'
+  const subtitle = 'Investment Calculator'
+  const description = '당신의 재무 목표를 달성하기 위한 정확한 투자 수익률을 계산하세요.\n데이터 기반의 스마트한 투자 계획을 시작하세요.'
   const [isMuted, setIsMuted] = useState(true)
   const [iframeKey, setIframeKey] = useState(0)
   const iframeRef = useRef(null)
@@ -142,8 +137,8 @@ function Hero() {
     <div className="hero-container">
       <nav className="hero-navigation">
         <Link 
-          to="/"
-          className={`hero-nav-item ${location.pathname === '/' ? 'active' : ''}`}
+          to="/calculator"
+          className={`hero-nav-item ${location.pathname === '/calculator' ? 'active' : ''}`}
         >
           <span className="hero-nav-icon">💰</span>
           <span className="hero-nav-label">투자 목표 계산기</span>
@@ -170,21 +165,6 @@ function Hero() {
               </span>
             ))}
           </p>
-          <button className="hero-cta" onClick={() => {
-            if (isAssetsPage) {
-              const targetElement = document.getElementById('asset-review')
-              if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              }
-            } else {
-              const targetElement = document.getElementById('investment-calculator')
-              if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              }
-            }
-          }}>
-            시작하기 →
-          </button>
         </div>
         <div className="hero-visual">
           <iframe 
@@ -209,9 +189,21 @@ function Hero() {
           <div className="spline-logo-overlay" />
         </div>
       </div>
-      <div className="hero-scroll-indicator">
-        <span>Scroll Down</span>
-        <div className="scroll-arrow">↓</div>
+      <div className="hero-quick-links">
+        <Link to="/calculator" className="hero-quick-link">
+          <span className="quick-link-icon">💰</span>
+          <span className="quick-link-text">
+            <span className="quick-link-label">투자목표 계산기</span>
+            <span className="quick-link-arrow">→ 바로 가기</span>
+          </span>
+        </Link>
+        <Link to="/assets" className="hero-quick-link">
+          <span className="quick-link-icon">📊</span>
+          <span className="quick-link-text">
+            <span className="quick-link-label">현재자산 돌아보기</span>
+            <span className="quick-link-arrow">→ 바로가기</span>
+          </span>
+        </Link>
       </div>
     </div>
   )
