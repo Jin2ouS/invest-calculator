@@ -42,7 +42,7 @@ function InvestmentCalculator() {
   }
 
   return (
-    <div className="calculator-container">
+    <div id="investment-calculator" className="calculator-container">
       <header className="calculator-header">
         <h1>💰 투자 목표 계산기</h1>
         <p className="subtitle">목표 달성을 위한 필요 수익률을 계산해보세요</p>

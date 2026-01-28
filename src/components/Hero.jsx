@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import './Hero.css'
 
-function Hero({ title = '투자 계산기', subtitle = 'Investment Calculator', description = '당신의 재무 목표를 달성하기 위한 정확한 투자 수익률을 계산하세요.\n데이터 기반의 스마트한 투자 계획을 시작하세요.' }) {
+function Hero() {
+  const title = '투자 계산기'
+  const subtitle = 'Investment Calculator'
+  const description = '당신의 재무 목표를 달성하기 위한 정확한 투자 수익률을 계산하세요.\n데이터 기반의 스마트한 투자 계획을 시작하세요.'
   const [isMuted, setIsMuted] = useState(true)
   const [iframeKey, setIframeKey] = useState(0)
   const iframeRef = useRef(null)
@@ -129,8 +132,38 @@ function Hero({ title = '투자 계산기', subtitle = 'Investment Calculator', 
     })
   }
 
+  const handleNavigation = (targetId) => {
+    const targetElement = document.getElementById(targetId)
+    if (targetElement) {
+      const offset = 80 // 네비게이션 높이 고려
+      const elementPosition = targetElement.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
     <div className="hero-container">
+      <nav className="hero-navigation">
+        <button 
+          className="hero-nav-item"
+          onClick={() => handleNavigation('investment-calculator')}
+        >
+          <span className="hero-nav-icon">💰</span>
+          <span className="hero-nav-label">투자 목표 계산기</span>
+        </button>
+        <button 
+          className="hero-nav-item"
+          onClick={() => handleNavigation('asset-review')}
+        >
+          <span className="hero-nav-icon">📊</span>
+          <span className="hero-nav-label">현재 자산 돌아보기</span>
+        </button>
+      </nav>
       <div className="hero-content">
         <div className="hero-text">
           <h1 className="hero-title">
@@ -146,12 +179,7 @@ function Hero({ title = '투자 계산기', subtitle = 'Investment Calculator', 
             ))}
           </p>
           <button className="hero-cta" onClick={() => {
-            const targetElement = document.querySelector('.calculator-container') || 
-                                 document.querySelector('.asset-review-container')
-            targetElement?.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
-            })
+            handleNavigation('investment-calculator')
           }}>
             시작하기 →
           </button>

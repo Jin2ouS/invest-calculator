@@ -75,7 +75,7 @@ function AssetReview() {
   ].filter(item => parseFloat(parseNumber(item.value)) > 0)
 
   return (
-    <div className="asset-review-container">
+    <div id="asset-review" className="asset-review-container">
       <header className="asset-review-header">
         <h1>📊 현재 자산 돌아보기</h1>
         <p className="subtitle">나의 자산과 고정지출을 입력하고 분석해보세요</p>
