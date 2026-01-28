@@ -117,8 +117,16 @@ function AssetReview() {
     { key: 'other', label: '기타', value: expenses.other }
   ].filter(item => (item.value || 0) > 0)
 
+  // 수입 카테고리별 비율 계산
+  const incomeCategories = [
+    { key: 'salary', label: '근로소득', value: income.salary },
+    { key: 'assetIncome', label: '자산소득', value: income.assetIncome },
+    { key: 'other', label: '기타', value: income.other }
+  ].filter(item => (item.value || 0) > 0)
+
   const assetPieData = assetCategories.map((c) => ({ name: c.label, value: c.value || 0 }))
   const expensePieData = expenseCategories.map((c) => ({ name: c.label, value: c.value || 0 }))
+  const incomePieData = incomeCategories.map((c) => ({ name: c.label, value: c.value || 0 }))
 
   const PIE_COLORS = ['#667eea', '#764ba2', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4', '#a855f7', '#94a3b8']
 
@@ -535,39 +543,6 @@ function AssetReview() {
             <section className="analysis-section">
               <h2 className="section-title">📈 분석 결과</h2>
               
-              {totalAssets > 0 && (
-                <div className="analysis-card">
-                  <h3 className="analysis-title">자산 구성</h3>
-                  <div className="pie-layout">
-                    <div className="pie-chart">
-                      <ResponsiveContainer width="100%" height={220}>
-                        <PieChart>
-                          <Pie data={assetPieData} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>
-                            {assetPieData.map((_, idx) => (
-                              <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} />
-                            ))}
-                          </Pie>
-                          <Tooltip content={<PieTooltip />} />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className="pie-legend">
-                      {assetCategories.map((category, idx) => {
-                        const value = category.value || 0
-                        const percentage = ((value / totalAssets) * 100).toFixed(1)
-                        return (
-                          <div key={category.key} className="pie-legend-row">
-                            <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
-                            <span className="pie-name">{category.label}</span>
-                            <span className="pie-percent">{percentage}%</span>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {totalExpenses > 0 && (
                 <div className="analysis-card">
                   <h3 className="analysis-title">지출 구성</h3>
@@ -588,6 +563,72 @@ function AssetReview() {
                       {expenseCategories.map((category, idx) => {
                         const value = category.value || 0
                         const percentage = ((value / totalExpenses) * 100).toFixed(1)
+                        return (
+                          <div key={category.key} className="pie-legend-row">
+                            <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
+                            <span className="pie-name">{category.label}</span>
+                            <span className="pie-percent">{percentage}%</span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {totalIncome > 0 && (
+                <div className="analysis-card">
+                  <h3 className="analysis-title">수입 구성</h3>
+                  <div className="pie-layout">
+                    <div className="pie-chart">
+                      <ResponsiveContainer width="100%" height={220}>
+                        <PieChart>
+                          <Pie data={incomePieData} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                            {incomePieData.map((_, idx) => (
+                              <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip content={<PieTooltip />} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="pie-legend">
+                      {incomeCategories.map((category, idx) => {
+                        const value = category.value || 0
+                        const percentage = ((value / totalIncome) * 100).toFixed(1)
+                        return (
+                          <div key={category.key} className="pie-legend-row">
+                            <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
+                            <span className="pie-name">{category.label}</span>
+                            <span className="pie-percent">{percentage}%</span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {totalAssets > 0 && (
+                <div className="analysis-card">
+                  <h3 className="analysis-title">자산 구성</h3>
+                  <div className="pie-layout">
+                    <div className="pie-chart">
+                      <ResponsiveContainer width="100%" height={220}>
+                        <PieChart>
+                          <Pie data={assetPieData} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                            {assetPieData.map((_, idx) => (
+                              <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip content={<PieTooltip />} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="pie-legend">
+                      {assetCategories.map((category, idx) => {
+                        const value = category.value || 0
+                        const percentage = ((value / totalAssets) * 100).toFixed(1)
                         return (
                           <div key={category.key} className="pie-legend-row">
                             <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
