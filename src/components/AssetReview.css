@@ -50,6 +50,12 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  justify-self: start;
+}
+
+.asset-review-results > * {
+  width: 100%;
+  max-width: 450px;
 }
 
 .input-section {
