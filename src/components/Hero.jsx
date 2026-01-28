@@ -165,6 +165,38 @@ function Hero() {
               </span>
             ))}
           </p>
+          <div className="hero-quick-links">
+            <button 
+              className="hero-quick-link"
+              onClick={() => {
+                const targetElement = document.getElementById('investment-calculator')
+                if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+              }}
+            >
+              <span className="quick-link-icon">💰</span>
+              <span className="quick-link-text">
+                <span className="quick-link-label">투자목표 계산기</span>
+                <span className="quick-link-arrow">→ 바로 가기</span>
+              </span>
+            </button>
+            <button 
+              className="hero-quick-link"
+              onClick={() => {
+                const targetElement = document.getElementById('asset-review')
+                if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+              }}
+            >
+              <span className="quick-link-icon">📊</span>
+              <span className="quick-link-text">
+                <span className="quick-link-label">현재자산 돌아보기</span>
+                <span className="quick-link-arrow">→ 바로가기</span>
+              </span>
+            </button>
+          </div>
         </div>
         <div className="hero-visual">
           <iframe 
@@ -188,22 +220,6 @@ function Hero() {
           </button>
           <div className="spline-logo-overlay" />
         </div>
-      </div>
-      <div className="hero-quick-links">
-        <Link to="/calculator" className="hero-quick-link">
-          <span className="quick-link-icon">💰</span>
-          <span className="quick-link-text">
-            <span className="quick-link-label">투자목표 계산기</span>
-            <span className="quick-link-arrow">→ 바로 가기</span>
-          </span>
-        </Link>
-        <Link to="/assets" className="hero-quick-link">
-          <span className="quick-link-icon">📊</span>
-          <span className="quick-link-text">
-            <span className="quick-link-label">현재자산 돌아보기</span>
-            <span className="quick-link-arrow">→ 바로가기</span>
-          </span>
-        </Link>
       </div>
     </div>
   )
