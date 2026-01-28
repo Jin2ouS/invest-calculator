@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Hero.css'
 
 function Hero() {
@@ -135,22 +135,6 @@ function Hero() {
 
   return (
     <div className="hero-container">
-      <nav className="hero-navigation">
-        <Link 
-          to="/calculator"
-          className={`hero-nav-item ${location.pathname === '/calculator' ? 'active' : ''}`}
-        >
-          <span className="hero-nav-icon">💰</span>
-          <span className="hero-nav-label">투자 목표 계산기</span>
-        </Link>
-        <Link 
-          to="/assets"
-          className={`hero-nav-item ${location.pathname === '/assets' ? 'active' : ''}`}
-        >
-          <span className="hero-nav-icon">📊</span>
-          <span className="hero-nav-label">현재 자산 돌아보기</span>
-        </Link>
-      </nav>
       <div className="hero-content">
         <div className="hero-text">
           <h1 className="hero-title">
