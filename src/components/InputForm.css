@@ -9,6 +9,16 @@
   margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid #e5e7eb;
+  width: 100%;
+  overflow-x: visible;
+}
+
+.form-section > * {
+  display: block;
+}
+
+.form-section > .input-group {
+  display: flex !important;
 }
 
 .form-section:last-of-type {
@@ -49,6 +59,11 @@
   font-weight: 600;
   color: #1f2937;
   font-size: 0.95rem;
+  width: 100%;
+}
+
+.form-label + .input-group {
+  display: inline-flex !important;
 }
 
 .label-text {
@@ -106,45 +121,52 @@
 }
 
 .input-group {
-  display: inline-flex !important;
+  display: flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
   position: relative;
   flex-wrap: nowrap !important;
-  width: auto !important;
-  max-width: 100%;
+  width: fit-content !important;
+  max-width: 100% !important;
   min-width: 0;
+  white-space: nowrap !important;
 }
 
 .input-wrapper {
   position: relative;
-  display: flex;
+  display: inline-flex !important;
   align-items: center;
   flex: 0 0 auto !important;
   width: auto !important;
-  max-width: 120px !important;
+  max-width: 100px !important;
   min-width: 0;
+  flex-shrink: 0 !important;
+  vertical-align: middle;
 }
 
 .input-wrapper .form-input {
   width: 100% !important;
-  max-width: 120px !important;
+  max-width: 100px !important;
   padding-right: 2.5rem;
-  min-width: 70px;
+  min-width: 50px;
   box-sizing: border-box;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
 }
 
 .input-suffix {
   font-weight: 600;
   color: #6b7280;
-  font-size: 0.95rem;
+  font-size: 0.95rem !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  display: inline-block !important;
+  display: inline !important;
   margin-left: 0 !important;
-  line-height: 1;
-  vertical-align: middle;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .input-buttons {
