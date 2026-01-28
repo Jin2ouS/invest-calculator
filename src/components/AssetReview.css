@@ -108,8 +108,13 @@
   margin-bottom: 0.25rem;
 }
 
+.asset-input-group .input-description {
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+}
+
 .asset-input-group .asset-input-row {
-  margin-bottom: -0.5rem;
+  margin-bottom: 0;
 }
 
 .asset-input-row {
