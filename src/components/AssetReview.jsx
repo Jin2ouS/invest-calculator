@@ -150,8 +150,11 @@ function AssetReview() {
             <h2 className="section-title">💸 고정지출</h2>
             <div className="input-grid">
             <div className="asset-input-group">
-                <label className="input-label">주거비</label>
-              <div className="input-description">월세, 전세자금, 관리비 등 주거 관련 비용</div>
+                <label className="input-label">
+                  <span className="label-icon">🏠</span>
+                  <span className="label-text">주거비</span>
+                  <span className="label-description">월세, 전세자금, 관리비 등 주거 관련 비용</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -172,8 +175,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">통신비</label>
-              <div className="input-description">휴대폰 요금, 인터넷, TV 요금 등</div>
+                <label className="input-label">
+                  <span className="label-icon">📱</span>
+                  <span className="label-text">통신비</span>
+                  <span className="label-description">휴대폰 요금, 인터넷, TV 요금 등</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -194,8 +200,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">교통비</label>
-              <div className="input-description">대중교통비, 주유비, 주차비 등</div>
+                <label className="input-label">
+                  <span className="label-icon">🚗</span>
+                  <span className="label-text">교통비</span>
+                  <span className="label-description">대중교통비, 주유비, 주차비 등</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -216,8 +225,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">식비</label>
-              <div className="input-description">식료품, 외식비 등 식생활 관련 비용</div>
+                <label className="input-label">
+                  <span className="label-icon">🍽️</span>
+                  <span className="label-text">식비</span>
+                  <span className="label-description">식료품, 외식비 등 식생활 관련 비용</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -238,8 +250,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">보험</label>
-              <div className="input-description">생명보험, 건강보험, 자동차보험 등</div>
+                <label className="input-label">
+                  <span className="label-icon">🛡️</span>
+                  <span className="label-text">보험</span>
+                  <span className="label-description">생명보험, 건강보험, 자동차보험 등</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -260,8 +275,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">기타</label>
-              <div className="input-description">교육비, 의료비, 취미 등 기타 고정 지출</div>
+                <label className="input-label">
+                  <span className="label-icon">📋</span>
+                  <span className="label-text">기타</span>
+                  <span className="label-description">교육비, 의료비, 취미 등 기타 고정 지출</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -293,8 +311,11 @@ function AssetReview() {
             <h2 className="section-title">💰 고정수입</h2>
             <div className="input-grid">
             <div className="asset-input-group">
-                <label className="input-label">근로소득</label>
-              <div className="input-description">월 급여, 상여금 등 근로를 통한 소득</div>
+                <label className="input-label">
+                  <span className="label-icon">💼</span>
+                  <span className="label-text">근로소득</span>
+                  <span className="label-description">월 급여, 상여금 등 근로를 통한 소득</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -315,8 +336,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">자산소득</label>
-              <div className="input-description">배당금, 이자, 임대료 등 자산에서 발생하는 소득</div>
+                <label className="input-label">
+                  <span className="label-icon">💰</span>
+                  <span className="label-text">자산소득</span>
+                  <span className="label-description">배당금, 이자, 임대료 등 자산에서 발생하는 소득</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -337,8 +361,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">기타</label>
-              <div className="input-description">사업소득, 기타 소득 등</div>
+                <label className="input-label">
+                  <span className="label-icon">📋</span>
+                  <span className="label-text">기타</span>
+                  <span className="label-description">사업소득, 기타 소득 등</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -370,8 +397,11 @@ function AssetReview() {
             <h2 className="section-title">💰 보유자산</h2>
             <div className="input-grid">
             <div className="asset-input-group">
-                <label className="input-label">부동산</label>
-              <div className="input-description">아파트, 오피스텔, 토지 등 부동산 자산</div>
+                <label className="input-label">
+                  <span className="label-icon">🏘️</span>
+                  <span className="label-text">부동산</span>
+                  <span className="label-description">아파트, 오피스텔, 토지 등 부동산 자산</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -392,8 +422,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">주식</label>
-              <div className="input-description">개별 주식 및 주식형 펀드 투자금</div>
+                <label className="input-label">
+                  <span className="label-icon">📈</span>
+                  <span className="label-text">주식</span>
+                  <span className="label-description">개별 주식 및 주식형 펀드 투자금</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -414,8 +447,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">예적금,펀드</label>
-              <div className="input-description">예금, 적금, 채권형 펀드 등 안정적 자산</div>
+                <label className="input-label">
+                  <span className="label-icon">🏦</span>
+                  <span className="label-text">예적금,펀드</span>
+                  <span className="label-description">예금, 적금, 채권형 펀드 등 안정적 자산</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -436,8 +472,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">현금성 자산</label>
-              <div className="input-description">현금, 당좌예금, MMDA 등 즉시 사용 가능한 자산</div>
+                <label className="input-label">
+                  <span className="label-icon">💵</span>
+                  <span className="label-text">현금성 자산</span>
+                  <span className="label-description">현금, 당좌예금, MMDA 등 즉시 사용 가능한 자산</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
@@ -458,8 +497,11 @@ function AssetReview() {
               </div>
 
             <div className="asset-input-group">
-                <label className="input-label">기타</label>
-              <div className="input-description">기타 투자 자산 (암호화폐, 원자재 등)</div>
+                <label className="input-label">
+                  <span className="label-icon">📋</span>
+                  <span className="label-text">기타</span>
+                  <span className="label-description">기타 투자 자산 (암호화폐, 원자재 등)</span>
+                </label>
               <div className="asset-input-row">
                 <div className="asset-input-wrapper">
                   <input
