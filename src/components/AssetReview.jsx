@@ -82,256 +82,269 @@ function AssetReview() {
       </header>
 
       <div className="asset-review-content">
-        {/* 자산 입력 섹션 */}
-        <section className="input-section">
-          <h2 className="section-title">💰 자산 입력</h2>
-          <div className="input-grid">
-            <div className="input-group">
-              <label className="input-label">현금</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(assets.cash)}
-                  onChange={(e) => handleAssetChange('cash', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">주식</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(assets.stocks)}
-                  onChange={(e) => handleAssetChange('stocks', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">부동산</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(assets.realEstate)}
-                  onChange={(e) => handleAssetChange('realEstate', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">채권</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(assets.bonds)}
-                  onChange={(e) => handleAssetChange('bonds', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">기타</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(assets.other)}
-                  onChange={(e) => handleAssetChange('other', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="total-display">
-            <span className="total-label">총 자산</span>
-            <span className="total-value">{formatNumber(totalAssets.toString())}원</span>
-          </div>
-        </section>
-
-        {/* 고정지출 입력 섹션 */}
-        <section className="input-section">
-          <h2 className="section-title">💸 고정지출 입력</h2>
-          <div className="input-grid">
-            <div className="input-group">
-              <label className="input-label">주거비</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(expenses.housing)}
-                  onChange={(e) => handleExpenseChange('housing', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">식비</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(expenses.food)}
-                  onChange={(e) => handleExpenseChange('food', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">교통비</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(expenses.transport)}
-                  onChange={(e) => handleExpenseChange('transport', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">통신비</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(expenses.communication)}
-                  onChange={(e) => handleExpenseChange('communication', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">보험</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(expenses.insurance)}
-                  onChange={(e) => handleExpenseChange('insurance', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label className="input-label">기타</label>
-              <div className="input-wrapper">
-                <input
-                  type="text"
-                  className="form-input"
-                  placeholder="0"
-                  value={formatNumber(expenses.other)}
-                  onChange={(e) => handleExpenseChange('other', parseNumber(e.target.value))}
-                />
-                <span className="input-unit">원</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="total-display">
-            <span className="total-label">월 총 지출</span>
-            <span className="total-value">{formatNumber(monthlyExpenses.toString())}원</span>
-          </div>
-        </section>
-
-        {/* 분석 결과 섹션 */}
-        {(totalAssets > 0 || totalExpenses > 0) && (
-          <section className="analysis-section">
-            <h2 className="section-title">📈 분석 결과</h2>
-            
-            {totalAssets > 0 && (
-              <div className="analysis-card">
-                <h3 className="analysis-title">자산 구성</h3>
-                <div className="category-list">
-                  {assetCategories.map((category) => {
-                    const value = parseFloat(parseNumber(category.value)) || 0
-                    const percentage = ((value / totalAssets) * 100).toFixed(1)
-                    return (
-                      <div key={category.key} className="category-item">
-                        <div className="category-header">
-                          <span className="category-label">{category.label}</span>
-                          <span className="category-percentage">{percentage}%</span>
-                        </div>
-                        <div className="category-bar">
-                          <div 
-                            className="category-bar-fill" 
-                            style={{ width: `${percentage}%` }}
-                          />
-                        </div>
-                        <div className="category-value">{formatNumber(category.value)}원</div>
-                      </div>
-                    )
-                  })}
+        {/* 좌측: 입력 섹션 */}
+        <div className="asset-review-inputs">
+          {/* 자산 입력 섹션 */}
+          <section className="input-section">
+            <h2 className="section-title">💰 자산 입력</h2>
+            <div className="input-grid">
+              <div className="input-group">
+                <label className="input-label">현금</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(assets.cash)}
+                    onChange={(e) => handleAssetChange('cash', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
                 </div>
               </div>
-            )}
 
-            {totalExpenses > 0 && (
-              <div className="analysis-card">
-                <h3 className="analysis-title">지출 구성</h3>
-                <div className="category-list">
-                  {expenseCategories.map((category) => {
-                    const value = parseFloat(parseNumber(category.value)) || 0
-                    const percentage = ((value / totalExpenses) * 100).toFixed(1)
-                    return (
-                      <div key={category.key} className="category-item">
-                        <div className="category-header">
-                          <span className="category-label">{category.label}</span>
-                          <span className="category-percentage">{percentage}%</span>
-                        </div>
-                        <div className="category-bar">
-                          <div 
-                            className="category-bar-fill" 
-                            style={{ width: `${percentage}%` }}
-                          />
-                        </div>
-                        <div className="category-value">{formatNumber(category.value)}원</div>
-                      </div>
-                    )
-                  })}
+              <div className="input-group">
+                <label className="input-label">주식</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(assets.stocks)}
+                    onChange={(e) => handleAssetChange('stocks', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
                 </div>
               </div>
-            )}
 
-            {totalAssets > 0 && totalExpenses > 0 && (
-              <div className="analysis-card highlight">
-                <h3 className="analysis-title">자산 대비 지출 비율</h3>
-                <div className="ratio-display">
-                  <div className="ratio-value">
-                    {((totalExpenses / totalAssets) * 100).toFixed(2)}%
-                  </div>
-                  <div className="ratio-description">
-                    월 지출이 총 자산의 {((totalExpenses / totalAssets) * 100).toFixed(2)}%를 차지합니다
-                  </div>
+              <div className="input-group">
+                <label className="input-label">부동산</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(assets.realEstate)}
+                    onChange={(e) => handleAssetChange('realEstate', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
                 </div>
               </div>
-            )}
+
+              <div className="input-group">
+                <label className="input-label">채권</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(assets.bonds)}
+                    onChange={(e) => handleAssetChange('bonds', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">기타</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(assets.other)}
+                    onChange={(e) => handleAssetChange('other', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="total-display">
+              <span className="total-label">총 자산</span>
+              <span className="total-value">{formatNumber(totalAssets.toString())}원</span>
+            </div>
           </section>
-        )}
+
+          {/* 고정지출 입력 섹션 */}
+          <section className="input-section">
+            <h2 className="section-title">💸 고정지출 입력</h2>
+            <div className="input-grid">
+              <div className="input-group">
+                <label className="input-label">주거비</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(expenses.housing)}
+                    onChange={(e) => handleExpenseChange('housing', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">식비</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(expenses.food)}
+                    onChange={(e) => handleExpenseChange('food', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">교통비</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(expenses.transport)}
+                    onChange={(e) => handleExpenseChange('transport', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">통신비</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(expenses.communication)}
+                    onChange={(e) => handleExpenseChange('communication', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">보험</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(expenses.insurance)}
+                    onChange={(e) => handleExpenseChange('insurance', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+
+              <div className="input-group">
+                <label className="input-label">기타</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="0"
+                    value={formatNumber(expenses.other)}
+                    onChange={(e) => handleExpenseChange('other', parseNumber(e.target.value))}
+                  />
+                  <span className="input-unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="total-display">
+              <span className="total-label">월 총 지출</span>
+              <span className="total-value">{formatNumber(monthlyExpenses.toString())}원</span>
+            </div>
+          </section>
+        </div>
+
+        {/* 우측: 분석 결과 섹션 */}
+        <div className="asset-review-results">
+          {(totalAssets > 0 || totalExpenses > 0) ? (
+            <section className="analysis-section">
+              <h2 className="section-title">📈 분석 결과</h2>
+              
+              {totalAssets > 0 && (
+                <div className="analysis-card">
+                  <h3 className="analysis-title">자산 구성</h3>
+                  <div className="category-list">
+                    {assetCategories.map((category) => {
+                      const value = parseFloat(parseNumber(category.value)) || 0
+                      const percentage = ((value / totalAssets) * 100).toFixed(1)
+                      return (
+                        <div key={category.key} className="category-item">
+                          <div className="category-header">
+                            <span className="category-label">{category.label}</span>
+                            <span className="category-percentage">{percentage}%</span>
+                          </div>
+                          <div className="category-bar">
+                            <div 
+                              className="category-bar-fill" 
+                              style={{ width: `${percentage}%` }}
+                            />
+                          </div>
+                          <div className="category-value">{formatNumber(category.value)}원</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {totalExpenses > 0 && (
+                <div className="analysis-card">
+                  <h3 className="analysis-title">지출 구성</h3>
+                  <div className="category-list">
+                    {expenseCategories.map((category) => {
+                      const value = parseFloat(parseNumber(category.value)) || 0
+                      const percentage = ((value / totalExpenses) * 100).toFixed(1)
+                      return (
+                        <div key={category.key} className="category-item">
+                          <div className="category-header">
+                            <span className="category-label">{category.label}</span>
+                            <span className="category-percentage">{percentage}%</span>
+                          </div>
+                          <div className="category-bar">
+                            <div 
+                              className="category-bar-fill" 
+                              style={{ width: `${percentage}%` }}
+                            />
+                          </div>
+                          <div className="category-value">{formatNumber(category.value)}원</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {totalAssets > 0 && totalExpenses > 0 && (
+                <div className="analysis-card highlight">
+                  <h3 className="analysis-title">자산 대비 지출 비율</h3>
+                  <div className="ratio-display">
+                    <div className="ratio-value">
+                      {((totalExpenses / totalAssets) * 100).toFixed(2)}%
+                    </div>
+                    <div className="ratio-description">
+                      월 지출이 총 자산의 {((totalExpenses / totalAssets) * 100).toFixed(2)}%를 차지합니다
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
+          ) : (
+            <div className="empty-results">
+              <div className="empty-results-content">
+                <div className="empty-icon">📊</div>
+                <h3>분석 결과가 여기에 표시됩니다</h3>
+                <p>좌측에서 자산과 지출 정보를 입력하시면<br />실시간으로 분석 결과를 확인할 수 있습니다.</p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
