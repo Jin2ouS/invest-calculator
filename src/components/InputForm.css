@@ -161,6 +161,11 @@
   line-height: 1 !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
+  overflow: visible !important;
+}
+
+.input-group * {
+  flex-shrink: 0 !important;
 }
 
 .input-group::after {
@@ -204,6 +209,9 @@
   position: static !important;
   top: auto !important;
   left: auto !important;
+  flex: 0 0 auto !important;
+  min-width: auto !important;
+  max-width: none !important;
 }
 
 .input-buttons {
