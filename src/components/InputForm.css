@@ -18,7 +18,22 @@
 }
 
 .form-section > .input-group {
-  display: flex !important;
+  display: inline-flex !important;
+  width: auto !important;
+  margin-bottom: 0;
+  clear: both;
+  float: none !important;
+}
+
+.form-label {
+  display: block !important;
+  width: 100%;
+}
+
+.form-label + .input-group {
+  display: inline-flex !important;
+  width: auto !important;
+  margin-top: 0;
 }
 
 .form-section:last-of-type {
@@ -63,7 +78,8 @@
 }
 
 .form-label + .input-group {
-  display: inline-flex !important;
+  display: flex !important;
+  width: auto !important;
 }
 
 .label-text {
@@ -94,14 +110,13 @@
 
 /* Override for input-group context */
 .input-group .form-input {
-  width: auto !important;
-  display: inline-block !important;
+  width: 100% !important;
+  display: block !important;
 }
 
-/* Force input-group children to stay inline */
-.input-group > * {
-  display: inline-block !important;
-  vertical-align: middle !important;
+/* Force input-group to be inline and prevent wrapping */
+.input-group {
+  display: inline-flex !important;
 }
 
 /* Remove default number input spinners */
@@ -128,16 +143,18 @@
 }
 
 .input-group {
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
   position: relative;
   flex-wrap: nowrap !important;
-  width: fit-content !important;
-  max-width: 100% !important;
+  width: auto !important;
+  max-width: none !important;
   min-width: 0;
   white-space: nowrap !important;
-  line-height: normal !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  vertical-align: middle !important;
 }
 
 .input-group::after {
@@ -151,7 +168,7 @@
   align-items: center !important;
   flex: 0 0 auto !important;
   width: auto !important;
-  max-width: 100px !important;
+  max-width: 80px !important;
   min-width: 0;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
@@ -160,12 +177,12 @@
 
 .input-wrapper .form-input {
   width: 100% !important;
-  max-width: 100px !important;
+  max-width: 80px !important;
   padding-right: 2.5rem;
-  min-width: 50px;
+  min-width: 40px;
   box-sizing: border-box;
   flex-shrink: 0 !important;
-  display: inline-block !important;
+  display: block !important;
 }
 
 .input-suffix {
