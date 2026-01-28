@@ -23,6 +23,8 @@
   margin-bottom: 0;
   clear: both;
   float: none !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
 }
 
 .form-label {
@@ -36,6 +38,7 @@
   margin-top: 0;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
+  align-items: center !important;
 }
 
 .form-section:last-of-type {
