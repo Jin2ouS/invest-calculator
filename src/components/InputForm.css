@@ -105,7 +105,7 @@
 .form-select,
 .form-input {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 0.625rem 1rem;
   border: 2px solid #e5e7eb;
   border-radius: 10px;
   font-size: 1rem;
@@ -179,7 +179,7 @@
   align-items: center !important;
   flex: 0 0 auto !important;
   width: auto !important;
-  max-width: 150px !important;
+  max-width: 300px !important;
   min-width: 0;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
@@ -188,9 +188,9 @@
 
 .input-wrapper .form-input {
   width: 100% !important;
-  max-width: 150px !important;
+  max-width: 300px !important;
   padding-right: 2.5rem;
-  min-width: 60px;
+  min-width: 120px;
   box-sizing: border-box;
   flex-shrink: 0 !important;
   display: block !important;
@@ -530,13 +530,13 @@
   }
 
   .input-wrapper {
-    max-width: 120px !important;
+    max-width: 240px !important;
     flex: 0 0 auto !important;
   }
 
   .input-wrapper .form-input {
-    max-width: 120px !important;
-    min-width: 50px;
+    max-width: 240px !important;
+    min-width: 100px;
   }
 
   .input-suffix {
