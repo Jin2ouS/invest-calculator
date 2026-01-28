@@ -95,6 +95,13 @@
 /* Override for input-group context */
 .input-group .form-input {
   width: auto !important;
+  display: inline-block !important;
+}
+
+/* Force input-group children to stay inline */
+.input-group > * {
+  display: inline-block !important;
+  vertical-align: middle !important;
 }
 
 /* Remove default number input spinners */
@@ -130,18 +137,25 @@
   max-width: 100% !important;
   min-width: 0;
   white-space: nowrap !important;
+  line-height: normal !important;
+}
+
+.input-group::after {
+  content: '';
+  display: none;
 }
 
 .input-wrapper {
   position: relative;
   display: inline-flex !important;
-  align-items: center;
+  align-items: center !important;
   flex: 0 0 auto !important;
   width: auto !important;
   max-width: 100px !important;
   min-width: 0;
   flex-shrink: 0 !important;
-  vertical-align: middle;
+  vertical-align: middle !important;
+  line-height: 1 !important;
 }
 
 .input-wrapper .form-input {
@@ -160,13 +174,13 @@
   font-size: 0.95rem !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  display: inline !important;
+  display: inline-block !important;
   margin-left: 0 !important;
   line-height: 1 !important;
   vertical-align: middle !important;
-  position: relative;
-  top: 0;
-  left: 0;
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
 }
 
 .input-buttons {
