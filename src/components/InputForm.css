@@ -105,25 +105,36 @@
   align-items: center;
   gap: 0.5rem;
   position: relative;
+  flex-wrap: nowrap !important;
+  width: 100%;
 }
 
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  flex: 1;
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 180px;
+  min-width: 0;
 }
 
 .input-wrapper .form-input {
   width: 100%;
+  max-width: 180px;
   padding-right: 2.5rem;
+  min-width: 100px;
+  box-sizing: border-box;
 }
 
 .input-suffix {
   font-weight: 600;
   color: #6b7280;
   font-size: 0.95rem;
-  min-width: 40px;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  display: inline-block;
+  margin-left: 0;
 }
 
 .input-buttons {
@@ -433,6 +444,24 @@
 @media (max-width: 768px) {
   .input-form {
     padding: 1.5rem;
+  }
+
+  .input-group {
+    flex-wrap: nowrap !important;
+  }
+
+  .input-wrapper {
+    max-width: 150px;
+  }
+
+  .input-wrapper .form-input {
+    max-width: 150px;
+    min-width: 80px;
+  }
+
+  .input-suffix {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   .button-group {
