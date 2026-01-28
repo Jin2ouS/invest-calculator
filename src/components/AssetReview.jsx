@@ -456,19 +456,44 @@ function AssetReview() {
                 </div>
               )}
 
-              {totalAssets > 0 && totalExpenses > 0 && (
-                <div className="analysis-card highlight">
-                  <h3 className="analysis-title">자산 대비 지출 비율</h3>
-                  <div className="ratio-display">
-                    <div className="ratio-value">
-                      {((totalExpenses / totalAssets) * 100).toFixed(2)}%
-                    </div>
-                    <div className="ratio-description">
-                      월 지출이 총 자산의 {((totalExpenses / totalAssets) * 100).toFixed(2)}%를 차지합니다
+              {totalAssets > 0 && totalExpenses > 0 && (() => {
+                // 자산의 연 4% 기준
+                const annualAsset4Percent = totalAssets * 0.04
+                // 연 지출 (월 지출 * 12)
+                const annualExpenses = monthlyExpenses * 12
+                // 기준 대비 비율
+                const ratio = (annualExpenses / annualAsset4Percent) * 100
+                // 상태 판단 (100% 이상이면 안좋음, 미만이면 양호)
+                const isGood = ratio < 100
+                const statusText = isGood ? '양호' : '주의 필요'
+                const statusClass = isGood ? 'status-good' : 'status-warning'
+                
+                return (
+                  <div className="analysis-card highlight">
+                    <h3 className="analysis-title">자산 대비 지출 비율</h3>
+                    <div className="ratio-display">
+                      <div className="ratio-status">
+                        <span className={`status-badge ${statusClass}`}>{statusText}</span>
+                      </div>
+                      <div className="ratio-value">
+                        {ratio.toFixed(1)}%
+                      </div>
+                      <div className="ratio-description">
+                        연간 지출이 자산의 연 4% 기준 대비 <strong>{ratio.toFixed(1)}%</strong>입니다.
+                        <br />
+                        {isGood ? (
+                          <span className="status-message good">지출이 적정 수준으로 관리되고 있습니다.</span>
+                        ) : (
+                          <span className="status-message warning">지출이 기준을 초과하여 자산 관리에 주의가 필요합니다.</span>
+                        )}
+                      </div>
+                      <div className="ratio-reference">
+                        <small>기준: 자산의 연 4% ({formatNumber(annualAsset4Percent)}만원/년)</small>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )
+              })()}
             </section>
           ) : (
             <div className="empty-results">
