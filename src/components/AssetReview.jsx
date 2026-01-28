@@ -11,6 +11,12 @@ function AssetReview() {
     other: 0
   })
 
+  const [income, setIncome] = useState({
+    salary: 0,
+    assetIncome: 0,
+    other: 0
+  })
+
   const [expenses, setExpenses] = useState({
     housing: 0,
     food: 0,
@@ -33,6 +39,13 @@ function AssetReview() {
     }))
   }
 
+  const handleIncomeChange = (category, value) => {
+    setIncome(prev => ({
+      ...prev,
+      [category]: clampNumber(value)
+    }))
+  }
+
   const handleExpenseChange = (category, value) => {
     setExpenses(prev => ({
       ...prev,
@@ -50,6 +63,13 @@ function AssetReview() {
     }))
   }
 
+  const adjustIncome = (category, delta) => {
+    setIncome(prev => ({
+      ...prev,
+      [category]: Math.max(0, (prev[category] || 0) + delta * STEP_AMOUNT_MANWON)
+    }))
+  }
+
   const adjustExpense = (category, delta) => {
     setExpenses(prev => ({
       ...prev,
@@ -61,6 +81,14 @@ function AssetReview() {
   const totalAssets = Object.values(assets).reduce((sum, val) => {
     return sum + (val || 0)
   }, 0)
+
+  // 수입 합계 계산
+  const totalIncome = Object.values(income).reduce((sum, val) => {
+    return sum + (val || 0)
+  }, 0)
+
+  // 월 수입 계산
+  const monthlyIncome = totalIncome
 
   // 지출 합계 계산
   const totalExpenses = Object.values(expenses).reduce((sum, val) => {
@@ -238,6 +266,83 @@ function AssetReview() {
             </div>
           </section>
 
+          {/* 고정수입 입력 섹션 */}
+          <section className="input-section">
+            <h2 className="section-title">💰 고정수입 입력</h2>
+            <div className="input-grid">
+            <div className="asset-input-group">
+                <label className="input-label">근로소득</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={income.salary}
+                  onChange={(e) => handleIncomeChange('salary', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('salary', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('salary', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">월 급여, 상여금 등 근로를 통한 소득</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">자산소득</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={income.assetIncome}
+                  onChange={(e) => handleIncomeChange('assetIncome', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('assetIncome', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('assetIncome', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">배당금, 이자, 임대료 등 자산에서 발생하는 소득</div>
+
+            <div className="asset-input-group">
+                <label className="input-label">기타</label>
+              <div className="asset-input-row">
+                <div className="asset-input-wrapper">
+                  <input
+                  type="number"
+                  className="asset-form-input"
+                    placeholder="0"
+                  value={income.other}
+                  onChange={(e) => handleIncomeChange('other', e.target.value)}
+                  min="0"
+                  />
+                  <div className="asset-input-buttons">
+                    <button type="button" className="asset-input-btn asset-input-btn-up" aria-label="증가" onClick={() => adjustIncome('other', 1)}>▲</button>
+                    <button type="button" className="asset-input-btn asset-input-btn-down" aria-label="감소" onClick={() => adjustIncome('other', -1)}>▼</button>
+                  </div>
+                </div>
+                <span className="asset-input-suffix">만원</span>
+                </div>
+              </div>
+              <div className="input-description">사업소득, 기타 소득 등</div>
+            </div>
+
+            <div className="total-display">
+              <span className="total-label">월 총 수입</span>
+            <span className="total-value">{formatNumber(monthlyIncome)}만원</span>
+            </div>
+          </section>
+
           {/* 고정지출 입력 섹션 */}
           <section className="input-section">
             <h2 className="section-title">💸 고정지출 입력</h2>
@@ -384,7 +489,7 @@ function AssetReview() {
 
         {/* 우측: 분석 결과 섹션 */}
         <div className="asset-review-results">
-          {(totalAssets > 0 || totalExpenses > 0) ? (
+          {(totalAssets > 0 || totalExpenses > 0 || totalIncome > 0) ? (
             <section className="analysis-section">
               <h2 className="section-title">📈 분석 결과</h2>
               
@@ -459,8 +564,12 @@ function AssetReview() {
                 const annualAsset4Percent = totalAssets * 0.04
                 // 연 지출 (월 지출 * 12)
                 const annualExpenses = monthlyExpenses * 12
-                // 기준 대비 비율
-                const ratio = (annualExpenses / annualAsset4Percent) * 100
+                // 연 수입 (월 수입 * 12)
+                const annualIncome = monthlyIncome * 12
+                // 허용 가능한 연 지출 = 자산의 연 4% + 연 수입
+                const allowedAnnualExpenses = annualAsset4Percent + annualIncome
+                // 기준 대비 비율 (지출 / 허용 지출 * 100)
+                const ratio = allowedAnnualExpenses > 0 ? (annualExpenses / allowedAnnualExpenses) * 100 : 0
                 // 상태 판단 (100% 이상이면 안좋음, 미만이면 양호)
                 const isGood = ratio < 100
                 const statusText = isGood ? '양호' : '주의 필요'
@@ -477,7 +586,7 @@ function AssetReview() {
                         {ratio.toFixed(1)}%
                       </div>
                       <div className="ratio-description">
-                        연간 지출이 자산의 연 4% 기준 대비 <strong>{ratio.toFixed(1)}%</strong>입니다.
+                        연간 지출이 허용 기준 대비 <strong>{ratio.toFixed(1)}%</strong>입니다.
                         <br />
                         {isGood ? (
                           <span className="status-message good">지출이 적정 수준으로 관리되고 있습니다.</span>
@@ -486,7 +595,9 @@ function AssetReview() {
                         )}
                       </div>
                       <div className="ratio-reference">
-                        <small>기준: 자산의 연 4% ({formatNumber(annualAsset4Percent)}만원/년)</small>
+                        <small>
+                          허용 기준: 자산의 연 4% ({formatNumber(annualAsset4Percent)}만원/년) + 연 수입 ({formatNumber(annualIncome)}만원/년) = {formatNumber(allowedAnnualExpenses)}만원/년
+                        </small>
                       </div>
                     </div>
                   </div>
