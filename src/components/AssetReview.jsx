@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 import './AssetReview.css'
 
 function AssetReview() {
@@ -87,6 +88,24 @@ function AssetReview() {
     { key: 'insurance', label: '보험', value: expenses.insurance },
     { key: 'other', label: '기타', value: expenses.other }
   ].filter(item => (item.value || 0) > 0)
+
+  const assetPieData = assetCategories.map((c) => ({ name: c.label, value: c.value || 0 }))
+  const expensePieData = expenseCategories.map((c) => ({ name: c.label, value: c.value || 0 }))
+
+  const PIE_COLORS = ['#667eea', '#764ba2', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4', '#a855f7', '#94a3b8']
+
+  const formatManwon = (value) => `${formatNumber(value)}만원`
+
+  const PieTooltip = ({ active, payload }) => {
+    if (!active || !payload?.length) return null
+    const item = payload[0]
+    return (
+      <div className="pie-tooltip">
+        <div className="pie-tooltip-title">{item.name}</div>
+        <div className="pie-tooltip-value">{formatManwon(item.value)}</div>
+      </div>
+    )
+  }
 
   return (
     <div id="asset-review" className="asset-review-container">
@@ -361,26 +380,33 @@ function AssetReview() {
               {totalAssets > 0 && (
                 <div className="analysis-card">
                   <h3 className="analysis-title">자산 구성</h3>
-                  <div className="category-list">
-                    {assetCategories.map((category) => {
-                    const value = category.value || 0
-                      const percentage = ((value / totalAssets) * 100).toFixed(1)
-                      return (
-                        <div key={category.key} className="category-item">
-                          <div className="category-header">
-                            <span className="category-label">{category.label}</span>
-                            <span className="category-percentage">{percentage}%</span>
+                  <div className="pie-layout">
+                    <div className="pie-chart">
+                      <ResponsiveContainer width="100%" height={220}>
+                        <PieChart>
+                          <Pie data={assetPieData} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                            {assetPieData.map((_, idx) => (
+                              <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip content={<PieTooltip />} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="pie-legend">
+                      {assetCategories.map((category, idx) => {
+                        const value = category.value || 0
+                        const percentage = ((value / totalAssets) * 100).toFixed(1)
+                        return (
+                          <div key={category.key} className="pie-legend-row">
+                            <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
+                            <span className="pie-name">{category.label}</span>
+                            <span className="pie-percent">{percentage}%</span>
+                            <span className="pie-value">{formatManwon(value)}</span>
                           </div>
-                          <div className="category-bar">
-                            <div 
-                              className="category-bar-fill" 
-                              style={{ width: `${percentage}%` }}
-                            />
-                          </div>
-                        <div className="category-value">{formatNumber(value)}만원</div>
-                        </div>
-                      )
-                    })}
+                        )
+                      })}
+                    </div>
                   </div>
                 </div>
               )}
@@ -388,26 +414,33 @@ function AssetReview() {
               {totalExpenses > 0 && (
                 <div className="analysis-card">
                   <h3 className="analysis-title">지출 구성</h3>
-                  <div className="category-list">
-                    {expenseCategories.map((category) => {
-                    const value = category.value || 0
-                      const percentage = ((value / totalExpenses) * 100).toFixed(1)
-                      return (
-                        <div key={category.key} className="category-item">
-                          <div className="category-header">
-                            <span className="category-label">{category.label}</span>
-                            <span className="category-percentage">{percentage}%</span>
+                  <div className="pie-layout">
+                    <div className="pie-chart">
+                      <ResponsiveContainer width="100%" height={220}>
+                        <PieChart>
+                          <Pie data={expensePieData} dataKey="value" nameKey="name" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                            {expensePieData.map((_, idx) => (
+                              <Cell key={idx} fill={PIE_COLORS[idx % PIE_COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip content={<PieTooltip />} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="pie-legend">
+                      {expenseCategories.map((category, idx) => {
+                        const value = category.value || 0
+                        const percentage = ((value / totalExpenses) * 100).toFixed(1)
+                        return (
+                          <div key={category.key} className="pie-legend-row">
+                            <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
+                            <span className="pie-name">{category.label}</span>
+                            <span className="pie-percent">{percentage}%</span>
+                            <span className="pie-value">{formatManwon(value)}</span>
                           </div>
-                          <div className="category-bar">
-                            <div 
-                              className="category-bar-fill" 
-                              style={{ width: `${percentage}%` }}
-                            />
-                          </div>
-                        <div className="category-value">{formatNumber(value)}만원</div>
-                        </div>
-                      )
-                    })}
+                        )
+                      })}
+                    </div>
                   </div>
                 </div>
               )}
