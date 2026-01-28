@@ -49,6 +49,7 @@
 .asset-review-results {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .input-section {
@@ -126,6 +127,18 @@
   color: #a0aec0;
 }
 
+/* Remove native number spinners (keep our external ▲▼) */
+.asset-form-input[type="number"]::-webkit-inner-spin-button,
+.asset-form-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.asset-form-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .asset-input-buttons {
   position: absolute;
   right: 6px;
@@ -200,6 +213,7 @@
   position: sticky;
   top: 2rem;
   align-self: start;
+  width: 100%;
 }
 
 .analysis-card {
@@ -301,6 +315,7 @@
   align-items: center;
   justify-content: center;
   min-height: 400px;
+  width: 100%;
 }
 
 .empty-results-content {
