@@ -126,6 +126,18 @@
   transform: scale(0.95);
 }
 
+.spline-logo-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 180px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: 15;
+  pointer-events: none;
+  border-radius: 20px 0 0 0;
+}
+
 .hero-scroll-indicator {
   position: absolute;
   bottom: 2rem;
@@ -214,6 +226,11 @@
     right: 0.75rem;
   }
 
+  .spline-logo-overlay {
+    width: 160px;
+    height: 36px;
+  }
+
   .hero-text {
     display: flex;
     flex-direction: column;
@@ -251,6 +268,11 @@
     font-size: 1.125rem;
     top: 0.5rem;
     right: 0.5rem;
+  }
+
+  .spline-logo-overlay {
+    width: 140px;
+    height: 32px;
   }
 
   .hero-cta {

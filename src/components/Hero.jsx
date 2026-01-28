@@ -94,6 +94,7 @@ function Hero() {
           >
             {isMuted ? '🔇' : '🔊'}
           </button>
+          <div className="spline-logo-overlay" />
         </div>
       </div>
       <div className="hero-scroll-indicator">
