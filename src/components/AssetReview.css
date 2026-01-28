@@ -36,7 +36,8 @@
 
 @media (min-width: 1024px) {
   .asset-review-content {
-    grid-template-columns: 450px 1fr;
+    grid-template-columns: 450px 450px;
+    justify-content: center;
   }
 }
 
