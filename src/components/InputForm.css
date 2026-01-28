@@ -18,7 +18,7 @@
 }
 
 .form-section > .input-group {
-  display: inline-flex !important;
+  display: flex !important;
   width: auto !important;
   margin-bottom: 0;
   clear: both;
@@ -31,9 +31,11 @@
 }
 
 .form-label + .input-group {
-  display: inline-flex !important;
+  display: flex !important;
   width: auto !important;
   margin-top: 0;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
 }
 
 .form-section:last-of-type {
