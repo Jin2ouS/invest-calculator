@@ -92,8 +92,8 @@
 .input-description {
   font-size: 0.8125rem;
   color: #718096;
-  margin-top: 0.125rem;
-  line-height: 1.4;
+  margin-top: 0;
+  line-height: 1.2;
 }
 
 /* === InputForm-style controls (namespaced) === */
