@@ -413,7 +413,6 @@ function AssetReview() {
                             <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
                             <span className="pie-name">{category.label}</span>
                             <span className="pie-percent">{percentage}%</span>
-                            <span className="pie-value">{formatManwon(value)}</span>
                           </div>
                         )
                       })}
@@ -447,7 +446,6 @@ function AssetReview() {
                             <span className="pie-dot" style={{ background: PIE_COLORS[idx % PIE_COLORS.length] }} />
                             <span className="pie-name">{category.label}</span>
                             <span className="pie-percent">{percentage}%</span>
-                            <span className="pie-value">{formatManwon(value)}</span>
                           </div>
                         )
                       })}
