@@ -106,12 +106,13 @@
 }
 
 .input-group {
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
   position: relative;
   flex-wrap: nowrap !important;
-  width: 100%;
+  width: auto !important;
+  max-width: 100%;
   min-width: 0;
 }
 
@@ -121,17 +122,17 @@
   align-items: center;
   flex: 0 0 auto !important;
   width: auto !important;
-  max-width: 140px !important;
+  max-width: 120px !important;
   min-width: 0;
 }
 
 .input-wrapper .form-input {
   width: 100% !important;
-  max-width: 140px !important;
+  max-width: 120px !important;
   padding-right: 2.5rem;
-  min-width: 80px;
+  min-width: 70px;
   box-sizing: border-box;
-  flex-shrink: 1;
+  flex-shrink: 0;
 }
 
 .input-suffix {
@@ -143,6 +144,7 @@
   display: inline-block !important;
   margin-left: 0 !important;
   line-height: 1;
+  vertical-align: middle;
 }
 
 .input-buttons {
@@ -456,17 +458,18 @@
 
   .input-group {
     flex-wrap: nowrap !important;
-    display: flex !important;
+    display: inline-flex !important;
+    width: auto !important;
   }
 
   .input-wrapper {
-    max-width: 120px !important;
+    max-width: 100px !important;
     flex: 0 0 auto !important;
   }
 
   .input-wrapper .form-input {
-    max-width: 120px !important;
-    min-width: 70px;
+    max-width: 100px !important;
+    min-width: 60px;
   }
 
   .input-suffix {
