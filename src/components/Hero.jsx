@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { NAV_ITEMS } from '../config/navConfig'
 import './Hero.css'
 
 function Hero() {
@@ -150,26 +151,19 @@ function Hero() {
             ))}
           </p>
           <div className="hero-quick-links">
-            <Link 
-              to="/calculator"
-              className="hero-quick-link"
-            >
-              <span className="quick-link-icon">💰</span>
-              <span className="quick-link-text">
-                <span className="quick-link-label">투자+목표 계산기</span>
-                <span className="quick-link-arrow">→ 바로 가기</span>
-              </span>
-            </Link>
-            <Link 
-              to="/assets"
-              className="hero-quick-link"
-            >
-              <span className="quick-link-icon">📊</span>
-              <span className="quick-link-text">
-                <span className="quick-link-label">현재+자산 돌아보기</span>
-                <span className="quick-link-arrow">→ 바로가기</span>
-              </span>
-            </Link>
+            {NAV_ITEMS.filter((item) => item.path !== '/').map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="hero-quick-link"
+              >
+                <span className="quick-link-icon">{item.icon}</span>
+                <span className="quick-link-text">
+                  <span className="quick-link-label">{item.label}</span>
+                  <span className="quick-link-arrow">→ 바로 가기</span>
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
         <div className="hero-visual">

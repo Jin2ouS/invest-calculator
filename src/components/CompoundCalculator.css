@@ -1,0 +1,152 @@
+.compound .calculator-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .compound .calculator-content {
+    grid-template-columns: 450px 675px;
+    justify-content: center;
+  }
+}
+
+.compound .calculator-input-panel,
+.compound .calculator-result-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.compound .input-section {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.compound .section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.compound .rate-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.compound .form-input {
+  width: 120px;
+  padding: 0.625rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.compound .input-suffix {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.compound .unit-buttons,
+.compound .period-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.compound .unit-btn,
+.compound .period-btn {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: white;
+  font-weight: 600;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.compound .unit-btn:hover,
+.compound .period-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.compound .unit-btn.active,
+.compound .period-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: white;
+}
+
+.compound .result-section {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.compound .result-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.compound .result-card {
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.compound .result-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.compound .result-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.compound .result-value.primary {
+  color: #667eea;
+}
+
+.compound .yearly-table-wrap {
+  overflow-x: auto;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.compound .yearly-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.compound .yearly-table th,
+.compound .yearly-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.compound .yearly-table th {
+  font-weight: 700;
+  color: #667eea;
+  background: #f9fafb;
+}
+
+.compound .result-placeholder {
+  color: #9ca3af;
+  margin: 0;
+}
