@@ -202,6 +202,7 @@ function LongTermCalculator() {
 
       <div className="calculator-content">
         <div className="calculator-input-panel">
+          <h2 className="panel-title">입력하기</h2>
           <section className="input-section">
             <h2 className="section-title">투자 대상</h2>
             <div className="index-options">
@@ -398,12 +399,11 @@ function LongTermCalculator() {
         </div>
 
         <div className="calculator-result-panel">
-          <section className="result-section">
-            <h2 className="section-title">분석 결과</h2>
-
-            {calculated ? (
-              <>
-                <h3 className="result-summary-label">요약</h3>
+          <h2 className="panel-title">결과보기</h2>
+          {calculated ? (
+            <>
+              <div className="result-block-card">
+                <h3 className="result-block-label">요약</h3>
                 <div className="result-cards">
                   <div className="result-card">
                     <div className="result-label">기간 수익률</div>
@@ -432,8 +432,9 @@ function LongTermCalculator() {
                     </div>
                   </div>
                 </div>
-                <div className="index-chart-wrap">
-                  <h3 className="chart-title">기간별 평가액 추이 (만원)</h3>
+              </div>
+              <div className="result-block-card index-chart-wrap">
+                <h3 className="result-block-label">기간별 평가액 추이 (만원)</h3>
                   {firstDataYearInRange != null && firstDataYearInRange > actualStart && (
                     <p className="chart-data-note">
                       선·점은 해당 투자 대상 데이터가 있는 <strong>{firstDataYearInRange}년</strong>부터 표시됩니다.
@@ -468,11 +469,41 @@ function LongTermCalculator() {
                       />
                     </LineChart>
                   </ResponsiveContainer>
-                </div>
+              </div>
+
+                {simResult?.yearlyData?.length > 0 && (
+                  <div className="result-block-card period-detail-section">
+                    <h3 className="result-block-label">연차별 투자결과</h3>
+                    <div className="period-detail-table-wrap">
+                      <table className="period-detail-table">
+                        <thead>
+                          <tr>
+                            <th>년도</th>
+                            <th>수익률(%)</th>
+                            <th>평가액(만원)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {simResult.yearlyData.map((d) => (
+                            <tr key={d.year}>
+                              <td>{d.year}</td>
+                              <td className={d.returnPct != null ? (d.returnPct >= 0 ? 'positive' : 'negative') : ''}>
+                                {d.returnPct != null
+                                  ? `${d.returnPct >= 0 ? '+' : ''}${d.returnPct.toFixed(1)}%`
+                                  : '-'}
+                              </td>
+                              <td>{d.value != null ? formatNumber(d.value) : '-'}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
 
                 {yearlyTableData.length > 0 && (
-                  <div className="yearly-data-section">
-                    <h3 className="yearly-data-title">투자대상 기간별 변동 : {indexLabel}</h3>
+                  <div className="result-block-card yearly-data-section">
+                    <h3 className="result-block-label">투자기간 가격변동 : {indexLabel}</h3>
                     {(() => {
                       const src = getSourceInfo(indexId)
                       return src ? <p className="yearly-data-ticker">티커: {src.ticker}</p> : null
@@ -504,39 +535,9 @@ function LongTermCalculator() {
                   </div>
                 )}
 
-                {simResult?.yearlyData?.length > 0 && (
-                  <div className="period-detail-section">
-                    <h3 className="period-detail-title">투자 연차별 수익율</h3>
-                    <div className="period-detail-table-wrap">
-                      <table className="period-detail-table">
-                        <thead>
-                          <tr>
-                            <th>년도</th>
-                            <th>수익률(%)</th>
-                            <th>평가액(만원)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {simResult.yearlyData.map((d) => (
-                            <tr key={d.year}>
-                              <td>{d.year}</td>
-                              <td className={d.returnPct != null ? (d.returnPct >= 0 ? 'positive' : 'negative') : ''}>
-                                {d.returnPct != null
-                                  ? `${d.returnPct >= 0 ? '+' : ''}${d.returnPct.toFixed(1)}%`
-                                  : '-'}
-                              </td>
-                              <td>{d.value != null ? formatNumber(d.value) : '-'}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
-
-                <div className="returns-table-wrap">
-                  <h3 className="table-title">
-                    전체 연도별 수익율 : {indexLabel}
+                <div className="result-block-card result-block-card-spaced returns-table-wrap">
+                  <h3 className="result-block-label">
+                    전체 기간 가격변동 : {indexLabel}
                     {(() => {
                       const src = getSourceInfo(indexId)
                       return src ? `, ${src.ticker}` : ''
@@ -616,11 +617,12 @@ function LongTermCalculator() {
                 </p>
               </>
             ) : (
-              <p className="result-placeholder">
-                좌측에서 조건을 선택한 뒤 「계산하기」를 눌러주세요.
-              </p>
+              <div className="result-block-card">
+                <p className="result-placeholder">
+                  좌측에서 조건을 선택한 뒤 「계산하기」를 눌러주세요.
+                </p>
+              </div>
             )}
-          </section>
         </div>
       </div>
     </div>

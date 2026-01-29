@@ -4,6 +4,23 @@
   gap: 2rem;
 }
 
+.longterm .panel-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 1rem 0;
+  padding: 1rem 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: inherit;
+  border: 1px solid #e5e7eb;
+  box-sizing: border-box;
+}
+
 @media (min-width: 1024px) {
   .longterm .calculator-content {
     grid-template-columns: 450px 675px;
@@ -25,11 +42,25 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* 결과보기 섹션별 카드 - 입력하기 .input-section 과 동일한 스타일 */
+.longterm .result-block-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.longterm .result-block-card-spaced {
+  margin-top: 2rem;
+}
+
 .longterm .section-title {
   font-size: 1.1rem;
   font-weight: 700;
   color: #667eea;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .longterm .period-buttons,
@@ -284,18 +315,16 @@
   color: #374151;
 }
 
-.longterm .result-section {
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-}
-
-.longterm .result-summary-label {
-  font-size: 0.95rem;
+/* 분석 결과 각 항목 라벨 - 입력하기의 '투자 대상'과 동일한 폰트·구분선 */
+.longterm .result-block-label {
+  font-size: 1.1rem;
   font-weight: 700;
-  color: #4a5568;
-  margin: 0 0 0.75rem 0;
+  color: #667eea;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: inherit;
+  line-height: 1.4;
 }
 
 .longterm .result-cards {
@@ -354,12 +383,6 @@
   margin-top: 1.5rem;
 }
 
-.longterm .period-detail-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #4a5568;
-  margin: 0 0 0.5rem 0;
-}
 
 .longterm .period-detail-table-wrap {
   overflow-x: auto;
@@ -407,12 +430,6 @@
   margin-top: 1rem;
 }
 
-.longterm .yearly-data-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #4a5568;
-  margin: 0 0 0.5rem 0;
-}
 
 .longterm .yearly-data-ticker {
   font-size: 0.8rem;
@@ -494,12 +511,8 @@
   border-radius: 12px;
 }
 
-.longterm .chart-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #374151;
-  margin: 0 0 0.5rem;
-  text-align: center;
+.longterm .index-chart-wrap .result-block-label {
+  text-align: left;
 }
 
 .longterm .chart-data-note {
@@ -525,11 +538,8 @@
   margin-bottom: 1.5rem;
 }
 
-.longterm .table-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #374151;
-  margin: 0 0 0.75rem;
+.longterm .returns-table-wrap .result-block-label {
+  margin-bottom: 1rem;
 }
 
 .longterm .returns-table-scroll {
