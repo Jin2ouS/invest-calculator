@@ -33,6 +33,19 @@ function WinRateCalculator() {
     })
   }, [winRate, riskReward, trades, riskPerTrade, mdd])
 
+  const handleReset = () => {
+    setWinRate(50)
+    setRiskReward(2)
+    setTrades(20)
+    setRiskPerTrade(1)
+    setMdd(20)
+  }
+
+  const handleScrollToResult = () => {
+    const el = document.querySelector('#winrate-calculator .calculator-result-panel')
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <div id="winrate-calculator" className="calculator-container winrate">
       <header className="calculator-header">
@@ -42,8 +55,9 @@ function WinRateCalculator() {
 
       <div className="calculator-content">
         <div className="calculator-input-panel">
+          <h2 className="panel-title panel-title-input">✏️ 입력하기</h2>
           <section className="input-section">
-            <h2 className="section-title">승률 (%)</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>🎯</span> 승률 (%)</h2>
             <div className="input-row">
               <input
                 type="number"
@@ -66,7 +80,7 @@ function WinRateCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">손익비 (승리 시 수익 / 패배 시 손실)</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>⚖️</span> 손익비 (승리 시 수익 / 패배 시 손실)</h2>
             <div className="input-row">
               <input
                 type="number"
@@ -81,7 +95,7 @@ function WinRateCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">거래 횟수</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📊</span> 거래 횟수</h2>
             <div className="input-row">
               <input
                 type="number"
@@ -95,7 +109,7 @@ function WinRateCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">거래당 위험 (원금 대비 %)</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>⚠️</span> 거래당 위험 (원금 대비 %)</h2>
             <div className="input-row">
               <input
                 type="number"
@@ -111,7 +125,7 @@ function WinRateCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">MDD (최대 낙폭, %)</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📉</span> MDD (최대 낙폭, %)</h2>
             <div className="input-row">
               <input
                 type="number"
@@ -125,11 +139,21 @@ function WinRateCalculator() {
             </div>
             <p className="input-hint">MDD 발생 시 원금 회복에 필요한 수익률을 계산합니다.</p>
           </section>
+
+          <div className="calc-btn-group">
+            <button type="button" className="btn btn-primary" onClick={handleScrollToResult}>
+              계산하기
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={handleReset}>
+              초기화
+            </button>
+          </div>
         </div>
 
         <div className="calculator-result-panel">
+          <h2 className="panel-title panel-title-result">📊 결과보기</h2>
           <section className="result-section">
-            <h2 className="section-title">계산 결과</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📋</span> 계산 결과</h2>
             {result ? (
               <>
                 <div className="result-cards">

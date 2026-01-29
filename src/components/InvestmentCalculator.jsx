@@ -49,16 +49,21 @@ function InvestmentCalculator() {
       </header>
 
       <div className="calculator-content">
-        <InputForm 
-          inputs={inputs}
-          onInputChange={handleInputChange}
-          onCalculate={handleCalculate}
-          onReset={handleReset}
-        />
-
-        {showResult && result && (
-          <ResultDisplay result={result} inputs={inputs} />
-        )}
+        <div className="calculator-input-panel">
+          <h2 className="panel-title panel-title-input">✏️ 입력하기</h2>
+          <InputForm 
+            inputs={inputs}
+            onInputChange={handleInputChange}
+            onCalculate={handleCalculate}
+            onReset={handleReset}
+          />
+        </div>
+        <div className="calculator-result-panel">
+          <h2 className="panel-title panel-title-result">📊 결과보기</h2>
+          {showResult && result && (
+            <ResultDisplay result={result} inputs={inputs} />
+          )}
+        </div>
       </div>
     </div>
   )

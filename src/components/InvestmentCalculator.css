@@ -32,9 +32,18 @@
   gap: 2rem;
 }
 
+.calculator-input-panel,
+.calculator-result-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 @media (min-width: 1024px) {
   .calculator-content {
-    grid-template-columns: 450px 1fr;
+    /* 입력 450px, 결과 1.5배(675px) 고정으로 입력 전에도 결과 영역 넓이 유지 */
+    grid-template-columns: 450px 675px;
+    justify-content: center;
   }
 }
 

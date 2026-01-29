@@ -77,6 +77,17 @@ function AssetReview() {
     }))
   }
 
+  const handleReset = () => {
+    setAssets({ cash: 0, stocks: 0, realEstate: 0, bonds: 0, other: 0 })
+    setIncome({ salary: 0, assetIncome: 0, other: 0 })
+    setExpenses({ housing: 0, food: 0, transport: 0, communication: 0, insurance: 0, other: 0 })
+  }
+
+  const handleScrollToResult = () => {
+    const el = document.querySelector('.asset-review-results')
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   // 자산 합계 계산
   const totalAssets = Object.values(assets).reduce((sum, val) => {
     return sum + (val || 0)
@@ -146,16 +157,16 @@ function AssetReview() {
   return (
     <div id="asset-review" className="asset-review-container">
       <header className="asset-review-header">
-        <h1>📊 현재 자산 돌아보기</h1>
-        <p className="subtitle">나의 자산과 고정지출을 입력하고 분석해보세요</p>
+        <h1>📊 수입지출 점검하기</h1>
+        <p className="subtitle">나의 자산과 수입·지출을 입력하고 분석해보세요</p>
       </header>
 
-      <div className="asset-review-content">
-        {/* 좌측: 입력 섹션 */}
-        <div className="asset-review-inputs">
+      <div className="asset-review-content calculator-content">
+        <div className="calculator-input-panel asset-review-inputs">
+          <h2 className="panel-title panel-title-input">✏️ 입력하기</h2>
           {/* 고정지출 입력 섹션 */}
           <section className="input-section">
-            <h2 className="section-title">💸 고정지출</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>💸</span> 고정지출</h2>
             <div className="input-grid">
             <div className="asset-input-group">
                 <label className="input-label">
@@ -316,7 +327,7 @@ function AssetReview() {
 
           {/* 고정수입 입력 섹션 */}
           <section className="input-section">
-            <h2 className="section-title">💰 고정수입</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>💰</span> 고정수입</h2>
             <div className="input-grid">
             <div className="asset-input-group">
                 <label className="input-label">
@@ -402,7 +413,7 @@ function AssetReview() {
 
           {/* 보유자산 입력 섹션 */}
           <section className="input-section">
-            <h2 className="section-title">💰 보유자산</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>🏠</span> 보유자산</h2>
             <div className="input-grid">
             <div className="asset-input-group">
                 <label className="input-label">
@@ -535,13 +546,22 @@ function AssetReview() {
             <span className="total-value">{formatNumber(totalAssets)}만원</span>
             </div>
           </section>
+
+          <div className="calc-btn-group">
+            <button type="button" className="btn btn-primary" onClick={handleScrollToResult}>
+              계산하기
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={handleReset}>
+              초기화
+            </button>
+          </div>
         </div>
 
-        {/* 우측: 분석 결과 섹션 */}
-        <div className="asset-review-results">
+        <div className="calculator-result-panel asset-review-results">
+          <h2 className="panel-title panel-title-result">📊 결과보기</h2>
           {(totalAssets > 0 || totalExpenses > 0 || totalIncome > 0) ? (
             <section className="analysis-section">
-              <h2 className="section-title">📈 분석 결과</h2>
+              <h2 className="section-title"><span className="section-icon" aria-hidden>📈</span> 분석 결과</h2>
               
               {totalExpenses > 0 && (
                 <div className="analysis-card">

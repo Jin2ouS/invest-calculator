@@ -5,7 +5,7 @@ function TabNavigation({ onNavigate }) {
   const [activeSection, setActiveSection] = useState('')
   const tabs = [
     { id: 'calculator', label: '투자 목표 계산기', icon: '💰', targetId: 'investment-calculator' },
-    { id: 'assets', label: '현재 자산 돌아보기', icon: '📊', targetId: 'asset-review' }
+    { id: 'assets', label: '수입지출 점검하기', icon: '📊', targetId: 'asset-review' }
   ]
 
   const handleClick = (tab) => {

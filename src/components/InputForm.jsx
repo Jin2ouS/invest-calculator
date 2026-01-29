@@ -112,7 +112,7 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       <div className="form-section">
         <div className="step-header">
           <div className="step-indicator">STEP 1</div>
-          <div className="step-title">목표 시점</div>
+          <div className="step-title"><span className="section-icon" aria-hidden>📅</span> 목표 시점</div>
         </div>
         <label className="form-label">
           <span className="label-text">현재부터 투자목표 시점까지의 기간을 입력하세요</span>
@@ -178,7 +178,7 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       <div className="form-section">
         <div className="step-header">
           <div className="step-indicator">STEP 2</div>
-          <div className="step-title">목표 금액</div>
+          <div className="step-title"><span className="section-icon" aria-hidden>💰</span> 목표 금액</div>
         </div>
         <label className="form-label">
           <span className="label-text">원하시는 매월 현금흐름 금액을 입력하세요</span>
@@ -253,7 +253,7 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       <div className="form-section">
         <div className="step-header">
           <div className="step-indicator">STEP 3</div>
-          <div className="step-title">목표 수익율</div>
+          <div className="step-title"><span className="section-icon" aria-hidden>📈</span> 목표 수익율</div>
         </div>
         <label className="form-label">
           <span className="label-text">목표로 하는 연간 수익율을 입력하세요</span>
@@ -338,7 +338,7 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       <div className="form-section">
         <div className="step-header">
           <div className="step-indicator">STEP 4</div>
-          <div className="step-title">투자 시작 금액</div>
+          <div className="step-title"><span className="section-icon" aria-hidden>💵</span> 투자 시작 금액</div>
         </div>
         <label className="form-label">
           <span className="label-text">투자를 시작하는 금액을 알려주세요</span>
@@ -426,7 +426,7 @@ function InputForm({ inputs, onInputChange, onCalculate, onReset }) {
       <div className="form-section">
         <div className="step-header">
           <div className="step-indicator">STEP 5</div>
-          <div className="step-title">물가 상승율</div>
+          <div className="step-title"><span className="section-icon" aria-hidden>📊</span> 물가 상승율</div>
         </div>
         <label className="form-label">
           <span className="label-text">계산에 반영할 연간 인플레이션 비율을 선택하세요</span>

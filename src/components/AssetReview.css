@@ -56,6 +56,13 @@
   width: 100%;
 }
 
+.asset-review-container .calculator-input-panel,
+.asset-review-container .calculator-result-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .asset-review-results > * {
   width: 100%;
   min-width: 0;

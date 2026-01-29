@@ -42,6 +42,18 @@ function CompoundCalculator() {
 
   const formatNumber = (n) => new Intl.NumberFormat('ko-KR').format(Math.round(n))
 
+  const handleReset = () => {
+    setRateValue(7)
+    setRateUnit('annual')
+    setPeriodYears(10)
+    setPrincipal(1000)
+  }
+
+  const handleScrollToResult = () => {
+    const el = document.querySelector('#compound-calculator .calculator-result-panel')
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <div id="compound-calculator" className="calculator-container compound">
       <header className="calculator-header">
@@ -51,8 +63,9 @@ function CompoundCalculator() {
 
       <div className="calculator-content">
         <div className="calculator-input-panel">
+          <h2 className="panel-title panel-title-input">✏️ 입력하기</h2>
           <section className="input-section">
-            <h2 className="section-title">수익률 (CAGR)</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📈</span> 수익률 (CAGR)</h2>
             <div className="rate-input-row">
               <input
                 type="number"
@@ -79,7 +92,7 @@ function CompoundCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">투자 기간</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📅</span> 투자 기간</h2>
             <div className="period-buttons">
               {PERIOD_OPTIONS.map((y) => (
                 <button
@@ -95,7 +108,7 @@ function CompoundCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">투자 원금 (만원)</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>💰</span> 투자 원금 (만원)</h2>
             <div className="rate-input-row">
               <input
                 type="number"
@@ -107,11 +120,21 @@ function CompoundCalculator() {
               <span className="input-suffix">만원</span>
             </div>
           </section>
+
+          <div className="calc-btn-group">
+            <button type="button" className="btn btn-primary" onClick={handleScrollToResult}>
+              계산하기
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={handleReset}>
+              초기화
+            </button>
+          </div>
         </div>
 
         <div className="calculator-result-panel">
+          <h2 className="panel-title panel-title-result">📊 결과보기</h2>
           <section className="result-section">
-            <h2 className="section-title">투자 결과</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📋</span> 투자 결과</h2>
             {result ? (
               <>
                 <div className="result-cards">

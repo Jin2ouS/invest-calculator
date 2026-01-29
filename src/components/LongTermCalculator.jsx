@@ -144,6 +144,16 @@ function LongTermCalculator() {
 
   const handleCalculate = () => setCalculated(true)
 
+  const handleReset = () => {
+    setStartYear(maxYear - 10)
+    setEndYear(maxYear)
+    setIndexId('sp500')
+    setPurchaseMethod('lump')
+    setInitialAmount(1000)
+    setAnnualAmount(120)
+    setCalculated(false)
+  }
+
   const simResult =
     calculated && yearsCount > 0
       ? simulate(
@@ -202,9 +212,9 @@ function LongTermCalculator() {
 
       <div className="calculator-content">
         <div className="calculator-input-panel">
-          <h2 className="panel-title">입력하기</h2>
+          <h2 className="panel-title panel-title-input">✏️ 입력하기</h2>
           <section className="input-section">
-            <h2 className="section-title">투자 대상</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📊</span> 투자 대상</h2>
             <div className="index-options">
               <div className="index-options-row">
                 {indexOptions.slice(0, 3).map((opt) => (
@@ -249,7 +259,7 @@ function LongTermCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">투자 기간</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>📅</span> 투자 기간</h2>
             <p className="range-hint">좌단=시작, 우단=종료 · 몸통 드래그 시 기간 유지, 구간만 이동</p>
             <div className="range-dual-wrap" ref={trackRef}>
               <div className="range-track" aria-hidden="true" />
@@ -356,7 +366,7 @@ function LongTermCalculator() {
           </section>
 
           <section className="input-section">
-            <h2 className="section-title">매수 방법</h2>
+            <h2 className="section-title"><span className="section-icon" aria-hidden>🛒</span> 매수 방법</h2>
             <div className="purchase-options">
               {PURCHASE_METHODS.map((opt) => (
                 <button
@@ -393,17 +403,22 @@ function LongTermCalculator() {
             </div>
           </section>
 
-          <button type="button" className="index-calc-btn" onClick={handleCalculate}>
-            계산하기
-          </button>
+          <div className="calc-btn-group">
+            <button type="button" className="btn btn-primary" onClick={handleCalculate}>
+              계산하기
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={handleReset}>
+              초기화
+            </button>
+          </div>
         </div>
 
         <div className="calculator-result-panel">
-          <h2 className="panel-title">결과보기</h2>
+          <h2 className="panel-title panel-title-result">📊 결과보기</h2>
           {calculated ? (
             <>
               <div className="result-block-card">
-                <h3 className="result-block-label">요약</h3>
+                <h3 className="result-block-label"><span className="section-icon" aria-hidden>📋</span> 요약</h3>
                 <div className="result-cards">
                   <div className="result-card">
                     <div className="result-label">기간 수익률</div>
@@ -434,7 +449,7 @@ function LongTermCalculator() {
                 </div>
               </div>
               <div className="result-block-card index-chart-wrap">
-                <h3 className="result-block-label">기간별 평가액 추이 (만원)</h3>
+                <h3 className="result-block-label"><span className="section-icon" aria-hidden>📈</span> 기간별 평가액 추이 (만원)</h3>
                   {firstDataYearInRange != null && firstDataYearInRange > actualStart && (
                     <p className="chart-data-note">
                       선·점은 해당 투자 대상 데이터가 있는 <strong>{firstDataYearInRange}년</strong>부터 표시됩니다.
@@ -473,7 +488,7 @@ function LongTermCalculator() {
 
                 {simResult?.yearlyData?.length > 0 && (
                   <div className="result-block-card period-detail-section">
-                    <h3 className="result-block-label">연차별 투자결과</h3>
+                    <h3 className="result-block-label"><span className="section-icon" aria-hidden>📊</span> 연차별 투자결과</h3>
                     <div className="period-detail-table-wrap">
                       <table className="period-detail-table">
                         <thead>
@@ -503,7 +518,7 @@ function LongTermCalculator() {
 
                 {yearlyTableData.length > 0 && (
                   <div className="result-block-card yearly-data-section">
-                    <h3 className="result-block-label">투자기간 가격변동 : {indexLabel}</h3>
+                    <h3 className="result-block-label"><span className="section-icon" aria-hidden>📉</span> 투자기간 가격변동 : {indexLabel}</h3>
                     {(() => {
                       const src = getSourceInfo(indexId)
                       return src ? <p className="yearly-data-ticker">티커: {src.ticker}</p> : null
@@ -537,7 +552,7 @@ function LongTermCalculator() {
 
                 <div className="result-block-card result-block-card-spaced returns-table-wrap">
                   <h3 className="result-block-label">
-                    전체 기간 가격변동 : {indexLabel}
+                    <span className="section-icon" aria-hidden>📉</span> 전체 기간 가격변동 : {indexLabel}
                     {(() => {
                       const src = getSourceInfo(indexId)
                       return src ? `, ${src.ticker}` : ''

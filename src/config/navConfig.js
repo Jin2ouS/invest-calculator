@@ -10,7 +10,7 @@ export const NAV_ITEMS = [
   },
   {
     path: '/assets',
-    label: '현재 자산 돌아보기',
+    label: '수입지출 점검하기',
     icon: '📊',
   },
   {

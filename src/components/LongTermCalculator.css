@@ -4,20 +4,18 @@
   gap: 2rem;
 }
 
+/* 패널 제목 색상/배경은 index.css의 panel-title-input, panel-title-result 사용 */
 .longterm .panel-title {
   display: block;
   width: 100%;
   text-align: center;
   font-size: 1.35rem;
   font-weight: 700;
-  color: #374151;
   margin: 0 0 1rem 0;
   padding: 1rem 1.5rem;
-  background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   font-family: inherit;
-  border: 1px solid #e5e7eb;
   box-sizing: border-box;
 }
 
