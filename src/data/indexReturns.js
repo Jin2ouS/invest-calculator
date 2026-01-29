@@ -65,33 +65,56 @@ const KOSDAQ = {
   2025: 36.5
 }
 
-// 금(골드) 연도별 수익률 (1975~, Yahoo Finance GC=F 등 기준)
+// 금 연도별 수익률 USD (1975~2004 LBMA/역사자료, 2005~ Yahoo Finance GLD 기준)
 const GOLD = {
-  1975: 24.4, 1976: -4.1, 1977: 22.4, 1978: 37.0, 1979: 126.5, 1980: 15.2, 1981: -32.6,
-  1982: 14.9, 1983: -16.3, 1984: -19.5, 1985: 5.2, 1986: 24.4, 1987: 24.2, 1988: -2.3,
-  1989: 2.5, 1990: -1.2, 1991: -10.1, 1992: -5.7, 1993: 17.2, 1994: -2.1, 1995: -0.3,
-  1996: 4.6, 1997: -21.4, 1998: -0.8, 1999: 0.5, 2000: -5.4, 2001: 0.9, 2002: 25.5,
-  2003: 19.9, 2004: 4.7, 2005: 18.2, 2006: 23.2, 2007: 31.9, 2008: 5.8, 2009: 24.0,
-  2010: 29.8, 2011: 10.2, 2012: 7.1, 2013: -28.0, 2014: -1.8, 2015: -10.4, 2016: 8.6,
-  2017: 13.1, 2018: -1.6, 2019: 18.9, 2020: 25.1, 2021: -3.6, 2022: -0.3, 2023: 13.1,
-  2024: 16.5, 2025: 28.2
+  1975: -24.80, 1976: -4.10, 1977: 22.64, 1978: 37.01, 1979: 126.55, 1980: 15.19, 1981: -32.60,
+  1982: 15.62, 1983: -16.80, 1984: -19.38, 1985: 6.00, 1986: 18.96, 1987: 24.53, 1988: -15.26,
+  1989: -2.84, 1990: -3.11, 1991: -8.56, 1992: -5.73, 1993: 17.68, 1994: -2.17, 1995: 0.98,
+  1996: -4.59, 1997: -21.41, 1998: -0.83, 1999: 0.85, 2000: -5.44, 2001: 0.75, 2002: 25.57,
+  2003: 19.89, 2004: 4.65, 2005: 17.76, 2006: 22.55, 2007: 30.45, 2008: 4.92, 2009: 24.03,
+  2010: 29.27, 2011: 9.57, 2012: 6.60, 2013: -28.33, 2014: -2.19, 2015: -10.67, 2016: 8.03,
+  2017: 12.81, 2018: -1.94, 2019: 17.86, 2020: 24.81, 2021: -4.15, 2022: -0.77, 2023: 12.69,
+  2024: 26.66, 2025: 63.68
 }
 
-// 비트코인 연도별 수익률 (2011~, Yahoo Finance BTC-USD 기준)
+// 비트코인 연도별 수익률 USD (2011~, Yahoo Finance BTC-USD 기준, 해당 연도 1/1~12/31)
+// 2025: 1/1 시작 102,402 → 12/31 종료 89,102 → (89102-102402)/102402 = -12.97%
 const BITCOIN = {
-  2011: 1472.0, 2012: 186.0, 2013: 5429.0, 2014: -57.0, 2015: 35.0, 2016: 125.0,
-  2017: 1318.0, 2018: -72.0, 2019: 95.0, 2020: 305.0, 2021: 60.0, 2022: -65.0,
-  2023: 155.0, 2024: 132.0, 2025: 98.0
+  2011: 1436.7, 2012: 193.5, 2013: 5471.5, 2014: -57.5, 2015: 34.5, 2016: 123.6,
+  2017: 1369.0, 2018: -73.6, 2019: 92.2, 2020: 303.0, 2021: 59.7, 2022: -64.3,
+  2023: 155.4, 2024: 121.0, 2025: -13.0
 }
 
+// 비트코인 연도별 실제 가격 USD (Yahoo Finance BTC-USD, 해당 연도 시작·종료)
+const BITCOIN_PRICES = {
+  2011: { start: 0.30, end: 4.61 },
+  2012: { start: 4.61, end: 13.53 },
+  2013: { start: 13.53, end: 754.01 },
+  2014: { start: 754.01, end: 320.19 },
+  2015: { start: 320.19, end: 430.57 },
+  2016: { start: 430.57, end: 963.74 },
+  2017: { start: 963.74, end: 14156.40 },
+  2018: { start: 14156.40, end: 3742.70 },
+  2019: { start: 3742.70, end: 7193.60 },
+  2020: { start: 7193.60, end: 29001.72 },
+  2021: { start: 29001.72, end: 46306.45 },
+  2022: { start: 46306.45, end: 16547.50 },
+  2023: { start: 16547.50, end: 42265.19 },
+  2024: { start: 42265.19, end: 93429.20 },
+  2025: { start: 102402, end: 89102 }
+}
+
+const YAHOO_BASE = 'https://finance.yahoo.com/quote/'
+
+// 표시 순서: S&P, NASDAQ, SCHD, GOLD, BITCOIN, KOSPI, KOSDAQ
 const INDEX_DATA = {
-  sp500: { label: 'S&P 500', returns: SP500 },
-  nasdaq: { label: '나스닥', returns: NASDAQ },
-  schd: { label: 'SCHD', returns: SCHD },
-  kospi: { label: '코스피', returns: KOSPI },
-  kosdaq: { label: '코스닥', returns: KOSDAQ },
-  gold: { label: '금(골드)', returns: GOLD },
-  bitcoin: { label: '비트코인', returns: BITCOIN }
+  sp500: { label: '에스앤피', labelEn: 'S&P', labelKo: '에스앤피', returns: SP500, ticker: '^GSPC', sourceUrl: `${YAHOO_BASE}%5EGSPC`, valueLabel: '지수' },
+  nasdaq: { label: '나스닥', labelEn: 'NASDAQ', labelKo: '나스닥', returns: NASDAQ, ticker: '^IXIC', sourceUrl: `${YAHOO_BASE}%5EIXIC`, valueLabel: '지수' },
+  schd: { label: '슈드', labelEn: 'SCHD', labelKo: '슈드', returns: SCHD, ticker: 'SCHD', sourceUrl: `${YAHOO_BASE}SCHD`, valueLabel: '주가(USD)' },
+  gold: { label: '금', labelEn: 'GOLD', labelKo: '금', returns: GOLD, ticker: 'GLD', sourceUrl: `${YAHOO_BASE}GLD`, valueLabel: 'GLD(USD)' },
+  bitcoin: { label: '비트코인', labelEn: 'BITCOIN', labelKo: '비트코인', returns: BITCOIN, ticker: 'BTC-USD', sourceUrl: `${YAHOO_BASE}BTC-USD`, valueLabel: 'USD', yearlyPrices: BITCOIN_PRICES },
+  kospi: { label: '코스피', labelEn: 'KOSPI', labelKo: '코스피', returns: KOSPI, ticker: '^KS11', sourceUrl: `${YAHOO_BASE}%5EKS11`, valueLabel: '지수' },
+  kosdaq: { label: '코스닥', labelEn: 'KOSDAQ', labelKo: '코스닥', returns: KOSDAQ, ticker: '^KQ11', sourceUrl: `${YAHOO_BASE}%5EKQ11`, valueLabel: '지수' }
 }
 
 export function getMinYear() {
@@ -109,7 +132,53 @@ export function getMaxYear() {
 }
 
 export function getIndexOptions() {
-  return Object.entries(INDEX_DATA).map(([id, { label }]) => ({ id, label }))
+  return Object.entries(INDEX_DATA).map(([id, { label, labelEn, labelKo }]) => ({
+    id,
+    label,
+    labelEn: labelEn ?? label,
+    labelKo: labelKo ?? label
+  }))
+}
+
+/** 선택한 투자 대상의 Yahoo Finance 티커 및 URL. 없으면 null. */
+export function getSourceInfo(indexId) {
+  const data = INDEX_DATA[indexId]
+  if (!data || !data.ticker || !data.sourceUrl) return null
+  return { ticker: data.ticker, url: data.sourceUrl }
+}
+
+/** 해당 자산 값의 단위 라벨 (예: USD, 지수). */
+export function getValueLabel(indexId) {
+  return INDEX_DATA[indexId]?.valueLabel ?? ''
+}
+
+/**
+ * 선택 기간 내 연도별 데이터: 년도, 해당 자산의 시작값·종료값, 상승율.
+ * yearlyPrices가 있으면 실제 가격 사용, 없으면 첫 해 시작=100 지수.
+ */
+export function getYearlyPrices(indexId, startYear, endYear) {
+  const data = INDEX_DATA[indexId]
+  if (!data) return []
+  const range = getReturnsInRange(indexId, startYear, endYear).filter((r) => r.returnPct != null)
+  if (range.length === 0) return []
+  const prices = data.yearlyPrices
+  if (prices) {
+    return range
+      .filter((r) => prices[r.year])
+      .map(({ year, returnPct }) => ({
+        year,
+        startPrice: prices[year].start,
+        endPrice: prices[year].end,
+        returnPct
+      }))
+  }
+  let startPrice = 100
+  return range.map(({ year, returnPct }) => {
+    const endPrice = startPrice * (1 + returnPct / 100)
+    const row = { year, startPrice, endPrice, returnPct }
+    startPrice = endPrice
+    return row
+  })
 }
 
 /**

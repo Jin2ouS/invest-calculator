@@ -34,8 +34,19 @@
 
 .longterm .period-buttons,
 .longterm .period-quick-buttons,
-.longterm .index-options,
 .longterm .purchase-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.longterm .index-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.longterm .index-options-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -56,6 +67,27 @@
   color: #4a5568;
   cursor: pointer;
   transition: all 0.2s;
+}
+
+.longterm .index-btn {
+  min-width: 5.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  line-height: 1.2;
+}
+
+.longterm .index-btn-en {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.longterm .index-btn-ko {
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.95;
 }
 
 .longterm .period-btn:hover,
@@ -259,6 +291,13 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
+.longterm .result-summary-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4a5568;
+  margin: 0 0 0.75rem 0;
+}
+
 .longterm .result-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -297,6 +336,136 @@
   font-size: 0.8125rem;
   color: #9ca3af;
   margin: 0;
+}
+
+.longterm .result-note a {
+  color: #667eea;
+  word-break: break-all;
+}
+
+.longterm .result-note code {
+  font-size: 0.75rem;
+  background: #f3f4f6;
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+}
+
+.longterm .period-detail-section {
+  margin-top: 1.5rem;
+}
+
+.longterm .period-detail-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4a5568;
+  margin: 0 0 0.5rem 0;
+}
+
+.longterm .period-detail-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.longterm .period-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.longterm .period-detail-table th,
+.longterm .period-detail-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: right;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.longterm .period-detail-table th:first-child,
+.longterm .period-detail-table td:first-child {
+  text-align: left;
+}
+
+.longterm .period-detail-table thead th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.longterm .period-detail-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.longterm .period-detail-table .positive {
+  color: #059669;
+}
+
+.longterm .period-detail-table .negative {
+  color: #dc2626;
+}
+
+.longterm .yearly-data-section {
+  margin-top: 1rem;
+}
+
+.longterm .yearly-data-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4a5568;
+  margin: 0 0 0.5rem 0;
+}
+
+.longterm .yearly-data-ticker {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.longterm .yearly-data-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.longterm .yearly-data-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.longterm .yearly-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.longterm .yearly-data-table th,
+.longterm .yearly-data-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: right;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.longterm .yearly-data-table th:first-child,
+.longterm .yearly-data-table td:first-child {
+  text-align: left;
+}
+
+.longterm .yearly-data-table thead th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.longterm .yearly-data-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.longterm .yearly-data-table .positive {
+  color: #059669;
+}
+
+.longterm .yearly-data-table .negative {
+  color: #dc2626;
 }
 
 .longterm .index-calc-btn {

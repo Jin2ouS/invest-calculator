@@ -1,12 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import {
   getMinYear,
   getMaxYear,
   getIndexOptions,
   getReturn,
   getReturnsInRange,
-  simulate
+  simulate,
+  getSourceInfo,
+  getYearlyPrices,
+  getValueLabel
 } from '../data/indexReturns'
 import './LongTermCalculator.css'
 
@@ -174,7 +177,19 @@ function LongTermCalculator() {
       })
     : []
 
+  const yearlyTableData =
+    calculated && yearsCount > 0
+      ? getYearlyPrices(indexId, actualStart, actualEnd).map((row) => ({
+          ...row,
+          startPrice: Math.round(row.startPrice * 100) / 100,
+          endPrice: Math.round(row.endPrice * 100) / 100
+        }))
+      : []
+
+  const valueLabel = getValueLabel(indexId)
   const formatNumber = (n) => new Intl.NumberFormat('ko-KR').format(Math.round(n))
+  const formatDecimal = (n) => new Intl.NumberFormat('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n)
+  const formatValue = (v) => (v >= 100 ? formatNumber(v) : formatDecimal(v))
 
   const indexLabel = indexOptions.find((o) => o.id === indexId)?.label ?? indexId
 
@@ -190,16 +205,45 @@ function LongTermCalculator() {
           <section className="input-section">
             <h2 className="section-title">투자 대상</h2>
             <div className="index-options">
-              {indexOptions.map((opt) => (
-                <button
-                  key={opt.id}
-                  type="button"
-                  className={`index-btn ${indexId === opt.id ? 'active' : ''}`}
-                  onClick={() => setIndexId(opt.id)}
-                >
-                  {opt.label}
-                </button>
-              ))}
+              <div className="index-options-row">
+                {indexOptions.slice(0, 3).map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    className={`index-btn ${indexId === opt.id ? 'active' : ''}`}
+                    onClick={() => setIndexId(opt.id)}
+                  >
+                    <span className="index-btn-en">{opt.labelEn}</span>
+                    <span className="index-btn-ko">{opt.labelKo}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="index-options-row">
+                {indexOptions.slice(3, 5).map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    className={`index-btn ${indexId === opt.id ? 'active' : ''}`}
+                    onClick={() => setIndexId(opt.id)}
+                  >
+                    <span className="index-btn-en">{opt.labelEn}</span>
+                    <span className="index-btn-ko">{opt.labelKo}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="index-options-row">
+                {indexOptions.slice(5, 7).map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    className={`index-btn ${indexId === opt.id ? 'active' : ''}`}
+                    onClick={() => setIndexId(opt.id)}
+                  >
+                    <span className="index-btn-en">{opt.labelEn}</span>
+                    <span className="index-btn-ko">{opt.labelKo}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -356,66 +400,10 @@ function LongTermCalculator() {
         <div className="calculator-result-panel">
           <section className="result-section">
             <h2 className="section-title">분석 결과</h2>
-            <div className="returns-table-wrap">
-              <h3 className="table-title">{indexLabel} 연도별 수익률 (5년 단위 · 시작연도 기준)</h3>
-              <div className="returns-table-scroll">
-                {yearBlocks.length === 0 ? (
-                  <p className="returns-no-data">데이터 없음</p>
-                ) : (
-                  yearBlocks.map(({ start, end }) => {
-                    const yearsInBlock = []
-                    for (let y = start; y <= end; y++) yearsInBlock.push(y)
-                    const firstDataYearInBlock = yearsInBlock.find((y) => returnByYear[y] != null)
-                    const dataNote =
-                      firstDataYearInBlock != null && firstDataYearInBlock > start
-                        ? `(데이터는 ${firstDataYearInBlock}년부터)`
-                        : null
-                    return (
-                      <div key={`${start}-${end}`} className="returns-block">
-                        <div className="returns-block-header">
-                          <span className="returns-block-icon">◆</span>
-                          {start} ~ {end}
-                          {dataNote != null && (
-                            <span className="returns-block-note">{dataNote}</span>
-                          )}
-                        </div>
-                        <table className="returns-block-table">
-                          <tbody>
-                            <tr className="returns-block-row returns-block-row-year">
-                              <th className="returns-block-th">연도</th>
-                              {yearsInBlock.map((y) => (
-                                <td key={y} className="returns-block-td">
-                                  {String(y).slice(-2)}
-                                </td>
-                              ))}
-                            </tr>
-                            <tr className="returns-block-row returns-block-row-pct">
-                              <th className="returns-block-th">%</th>
-                              {yearsInBlock.map((y) => {
-                                const pct = returnByYear[y]
-                                return (
-                                  <td
-                                    key={y}
-                                    className={`returns-block-td ${pct != null ? (pct >= 0 ? 'positive' : 'negative') : ''}`}
-                                  >
-                                    {pct != null
-                                      ? `${pct >= 0 ? '+' : ''}${pct.toFixed(1)}`
-                                      : '-'}
-                                  </td>
-                                )
-                              })}
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    )
-                  })
-                )}
-              </div>
-            </div>
 
             {calculated ? (
               <>
+                <h3 className="result-summary-label">요약</h3>
                 <div className="result-cards">
                   <div className="result-card">
                     <div className="result-label">기간 수익률</div>
@@ -464,6 +452,12 @@ function LongTermCalculator() {
                         formatter={(v) => [formatNumber(v), '평가액(만원)']}
                         labelFormatter={(y) => `${y}년`}
                       />
+                      <ReferenceLine
+                        y={initialAmount}
+                        stroke="#94a3b8"
+                        strokeDasharray="4 4"
+                        strokeWidth={1.5}
+                      />
                       <Line
                         type="monotone"
                         dataKey="value"
@@ -475,10 +469,150 @@ function LongTermCalculator() {
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
+
+                {yearlyTableData.length > 0 && (
+                  <div className="yearly-data-section">
+                    <h3 className="yearly-data-title">투자대상 기간별 변동 : {indexLabel}</h3>
+                    {(() => {
+                      const src = getSourceInfo(indexId)
+                      return src ? <p className="yearly-data-ticker">티커: {src.ticker}</p> : null
+                    })()}
+                    <div className="yearly-data-table-wrap">
+                      <table className="yearly-data-table">
+                        <thead>
+                          <tr>
+                            <th>년도</th>
+                            <th>시작값</th>
+                            <th>종료값</th>
+                            <th>상승율</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {yearlyTableData.map((row) => (
+                            <tr key={row.year}>
+                              <td>{row.year}</td>
+                              <td>{formatValue(row.startPrice)}</td>
+                              <td>{formatValue(row.endPrice)}</td>
+                              <td className={row.returnPct >= 0 ? 'positive' : 'negative'}>
+                                {row.returnPct >= 0 ? '+' : ''}{row.returnPct.toFixed(1)}%
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {simResult?.yearlyData?.length > 0 && (
+                  <div className="period-detail-section">
+                    <h3 className="period-detail-title">투자 연차별 수익율</h3>
+                    <div className="period-detail-table-wrap">
+                      <table className="period-detail-table">
+                        <thead>
+                          <tr>
+                            <th>년도</th>
+                            <th>수익률(%)</th>
+                            <th>평가액(만원)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {simResult.yearlyData.map((d) => (
+                            <tr key={d.year}>
+                              <td>{d.year}</td>
+                              <td className={d.returnPct != null ? (d.returnPct >= 0 ? 'positive' : 'negative') : ''}>
+                                {d.returnPct != null
+                                  ? `${d.returnPct >= 0 ? '+' : ''}${d.returnPct.toFixed(1)}%`
+                                  : '-'}
+                              </td>
+                              <td>{d.value != null ? formatNumber(d.value) : '-'}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                <div className="returns-table-wrap">
+                  <h3 className="table-title">
+                    전체 연도별 수익율 : {indexLabel}
+                    {(() => {
+                      const src = getSourceInfo(indexId)
+                      return src ? `, ${src.ticker}` : ''
+                    })()}
+                  </h3>
+                  <div className="returns-table-scroll">
+                    {yearBlocks.length === 0 ? (
+                      <p className="returns-no-data">데이터 없음</p>
+                    ) : (
+                      yearBlocks.map(({ start, end }) => {
+                        const yearsInBlock = []
+                        for (let y = start; y <= end; y++) yearsInBlock.push(y)
+                        const firstDataYearInBlock = yearsInBlock.find((y) => returnByYear[y] != null)
+                        const dataNote =
+                          firstDataYearInBlock != null && firstDataYearInBlock > start
+                            ? `(데이터는 ${firstDataYearInBlock}년부터)`
+                            : null
+                        return (
+                          <div key={`${start}-${end}`} className="returns-block">
+                            <div className="returns-block-header">
+                              <span className="returns-block-icon">◆</span>
+                              {start} ~ {end}
+                              {dataNote != null && (
+                                <span className="returns-block-note">{dataNote}</span>
+                              )}
+                            </div>
+                            <table className="returns-block-table">
+                              <tbody>
+                                <tr className="returns-block-row returns-block-row-year">
+                                  <th className="returns-block-th">연도</th>
+                                  {yearsInBlock.map((y) => (
+                                    <td key={y} className="returns-block-td">
+                                      {String(y).slice(-2)}
+                                    </td>
+                                  ))}
+                                </tr>
+                                <tr className="returns-block-row returns-block-row-pct">
+                                  <th className="returns-block-th">%</th>
+                                  {yearsInBlock.map((y) => {
+                                    const pct = returnByYear[y]
+                                    return (
+                                      <td
+                                        key={y}
+                                        className={`returns-block-td ${pct != null ? (pct >= 0 ? 'positive' : 'negative') : ''}`}
+                                      >
+                                        {pct != null
+                                          ? `${pct >= 0 ? '+' : ''}${pct.toFixed(1)}`
+                                          : '-'}
+                                      </td>
+                                    )
+                                  })}
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        )
+                      })
+                    )}
+                  </div>
+                </div>
                 <p className="result-note">
                   * 위 수치는 선택한 투자 대상의 실제 연도별 수익률을 반영한 시뮬레이션 결과입니다.
                   <br />
-                  데이터 출처: 야후 파이낸스
+                  데이터 출처: 야후 파이낸스 (Yahoo Finance){' '}
+                  {(() => {
+                    const src = getSourceInfo(indexId)
+                    if (!src) return null
+                    return (
+                      <>
+                        티커 <code>{src.ticker}</code>{' '}
+                        <a href={src.url} target="_blank" rel="noopener noreferrer">
+                          {src.url}
+                        </a>
+                      </>
+                    )
+                  })()}
                 </p>
               </>
             ) : (
