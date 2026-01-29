@@ -4,7 +4,7 @@ import TopNavigation from './components/TopNavigation'
 import Hero from './components/Hero'
 import InvestmentCalculator from './components/InvestmentCalculator'
 import AssetReview from './components/AssetReview'
-import IndexLongTermCalculator from './components/IndexLongTermCalculator'
+import LongTermCalculator from './components/LongTermCalculator'
 import CompoundCalculator from './components/CompoundCalculator'
 import WinRateCalculator from './components/WinRateCalculator'
 
@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="/goal-calc" element={<InvestmentCalculator />} />
         <Route path="/assets" element={<AssetReview />} />
-        <Route path="/index-longterm" element={<IndexLongTermCalculator />} />
+        <Route path="/longterm" element={<LongTermCalculator />} />
         <Route path="/compound" element={<CompoundCalculator />} />
         <Route path="/winrate" element={<WinRateCalculator />} />
       </Routes>

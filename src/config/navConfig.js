@@ -14,8 +14,8 @@ export const NAV_ITEMS = [
     icon: '📊',
   },
   {
-    path: '/index-longterm',
-    label: '지수 장투 계산기',
+    path: '/longterm',
+    label: '장기투자 계산기',
     icon: '📈',
   },
   {
