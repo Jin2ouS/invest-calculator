@@ -101,24 +101,151 @@
   color: #667eea;
 }
 
-.winrate .mdd-recovery-card {
-  padding: 1.25rem;
+.winrate .result-card-warning {
   background: #fef3c7;
-  border-radius: 12px;
-  border-left: 4px solid #f59e0b;
+  border: 1px solid #fcd34d;
 }
 
-.winrate .recovery-title {
+.winrate .result-card-warning .result-value {
+  color: #b45309;
+}
+
+.winrate .result-hint {
+  font-size: 0.75rem;
+  color: #92400e;
+  margin-top: 0.25rem;
+}
+
+/* 거래 횟수에 따른 수익율 차트 */
+.winrate .return-chart-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* 청산까지 연속 손실 차트 */
+.winrate .ruin-chart-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.winrate .ruin-chart-title {
   font-size: 1rem;
   font-weight: 700;
-  color: #92400e;
-  margin: 0 0 0.5rem;
+  color: #374151;
+  margin: 0 0 0.25rem;
 }
 
-.winrate .recovery-desc {
-  font-size: 0.95rem;
-  color: #78350f;
-  margin: 0;
+.winrate .ruin-chart-desc {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0 0 1rem;
+}
+
+.winrate .ruin-chart-wrap {
+  width: 100%;
+  min-height: 260px;
+  border-radius: 12px;
+  background: #f9fafb;
+  padding: 0.5rem;
+}
+
+.winrate .ruin-summary-card {
+  margin-top: 1.25rem;
+}
+
+/* MDD 복구 수익률 참고 도표 */
+.winrate .mdd-chart-section {
+  margin-top: 0;
+}
+
+.winrate .mdd-chart-desc {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: -0.5rem 0 1rem;
+}
+
+.winrate .mdd-recovery-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.winrate .mdd-recovery-chart-main,
+.winrate .mdd-recovery-chart-ratio {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+}
+
+.winrate .mdd-chart-subtitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 0.75rem;
+}
+
+.winrate .mdd-tooltip-wrap {
+  background: white;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.winrate .mdd-tooltip {
+  font-size: 0.8125rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.winrate .mdd-tooltip-recovery {
+  color: #dc2626;
+}
+
+.winrate .mdd-recovery-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.winrate .mdd-recovery-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.winrate .mdd-recovery-table th,
+.winrate .mdd-recovery-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.winrate .mdd-recovery-table th {
+  background: #f3f4f6;
+  font-weight: 700;
+  color: #374151;
+}
+
+.winrate .mdd-recovery-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.winrate .mdd-recovery-table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.winrate .mdd-cell-loss {
+  font-weight: 700;
+}
+
+.winrate .mdd-cell-recovery {
+  font-weight: 700;
+  color: #dc2626;
 }
 
 .winrate .result-placeholder {
